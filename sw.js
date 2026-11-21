@@ -1,5 +1,5 @@
 /* Vistar appið svo það opnist líka án netsambands. Nær alltaf í nýjustu útgáfu þegar net er til staðar. */
-var C="vt27-v6";
+var C="vt27-v7";
 self.addEventListener("install",function(e){self.skipWaiting();e.waitUntil(caches.open(C).then(function(c){return c.addAll(["./","./index.html","./manifest.webmanifest","./icon-192.png","./apple-touch-icon.png","./kort-heim.jpg"])}))});
 self.addEventListener("activate",function(e){e.waitUntil(self.clients.claim())});
 self.addEventListener("fetch",function(e){var r=e.request;if(r.method!=="GET")return;var u=new URL(r.url);
