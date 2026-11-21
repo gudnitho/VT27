@@ -815,6 +815,21 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
 .sv-chips button i{width:9px;height:9px;border-radius:50%}
 .sv-chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .svm{border-radius:20px;overflow:hidden;margin:12px 0 14px;box-shadow:var(--shadow);background:#cfe3f5}
+.svm{position:relative;cursor:zoom-in}
+.svm::after{content:"⤢  Stækka kort";position:absolute;right:10px;bottom:10px;background:rgba(8,20,38,.82);color:#fff;font:600 12px/1 Inter,system-ui,sans-serif;padding:8px 12px;border-radius:999px;pointer-events:none;letter-spacing:.02em}
+.mz{position:fixed;inset:0;z-index:9999;background:#050b16;display:flex;flex-direction:column}
+.mz[hidden]{display:none}
+.mz-stage{position:relative;flex:1;overflow:hidden;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.mz-stage:active{cursor:grabbing}
+.mz-img{position:absolute;left:0;top:0;transform-origin:0 0;max-width:none;-webkit-user-drag:none;will-change:transform}
+.mz-x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#081426;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.mz-bar{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 18px);display:flex;gap:6px;background:rgba(8,20,38,.86);padding:6px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.mz-b{width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;font-size:22px;font-weight:600;cursor:pointer}
+.mz-b:active{background:rgba(255,255,255,.25)}
+.mz-load,.mz-tip{position:absolute;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 20px);background:rgba(8,20,38,.86);color:#fff;font:500 13px/1 Inter,system-ui,sans-serif;padding:9px 14px;border-radius:999px;white-space:nowrap;pointer-events:none;transition:opacity .5s}
+.mz-tip{top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 82px);opacity:.9}
+.mz-load[hidden]{display:none}
+
 .svm svg{display:block;width:100%;height:auto}
 .svm .hl{transition:opacity .35s}
 .sva{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
@@ -1538,6 +1553,55 @@ setTimeout(function(){
    chat.innerHTML="";chat.appendChild(q);chat.appendChild(a)})});
 },50);
 
+/* ===== Kortið í fullum gæðum með zoom ===== */
+setTimeout(function(){
+ var mapEl=document.getElementById("svMap");if(!mapEl)return;
+ var HD="kort-3vallees-hd.jpg",W=5600,H=2937,MAXS=1.4;
+ var ov=document.createElement("div");ov.className="mz";ov.hidden=true;ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");ov.setAttribute("aria-label","Brekkukort Les 3 Vallées");
+ ov.innerHTML='<div class="mz-stage"><img class="mz-img" alt="Opinbert brekkukort Les 3 Vallées í fullri upplausn" draggable="false" width="'+W+'" height="'+H+'" style="width:'+W+'px;height:'+H+'px"></div>'+
+  '<button class="mz-x" type="button" aria-label="Loka korti">✕</button>'+
+  '<div class="mz-bar"><button class="mz-b" type="button" data-z="out" aria-label="Minnka">−</button><button class="mz-b" type="button" data-z="fit" aria-label="Sýna allt kortið" style="font-size:18px">⤢</button><button class="mz-b" type="button" data-z="in" aria-label="Stækka">+</button></div>'+
+  '<div class="mz-load">Hleð kortinu í fullum gæðum…</div><div class="mz-tip">Klíptu eða tvísmelltu til að þysja · dragðu til að færa</div>';
+ document.body.appendChild(ov);
+ var stage=ov.querySelector(".mz-stage"),img=ov.querySelector(".mz-img"),load=ov.querySelector(".mz-load"),tip=ov.querySelector(".mz-tip");
+ var s=1,x=0,y=0,min=1,P={},pinch=null,lastTap=0,moved=0,hdLoaded=false,prevOverflow="";
+ function R(){return stage.getBoundingClientRect()}
+ function clamp(){var r=R(),w=W*s,h=H*s;
+  x=w<=r.width?(r.width-w)/2:Math.min(0,Math.max(r.width-w,x));
+  y=h<=r.height?(r.height-h)/2:Math.min(0,Math.max(r.height-h,y))}
+ function apply(){clamp();img.style.transform="translate3d("+x+"px,"+y+"px,0) scale("+s+")"}
+ function zoomTo(ns,cx,cy){ns=Math.max(min,Math.min(MAXS,ns));x=cx-(cx-x)*ns/s;y=cy-(cy-y)*ns/s;s=ns;apply()}
+ function fit(){var r=R();min=Math.min(r.width/W,r.height/H);s=min;x=0;y=0;apply()}
+ function open(){
+  var low=mapEl.querySelector("img");
+  if(!hdLoaded&&low)img.src=low.src;
+  ov.hidden=false;prevOverflow=document.body.style.overflow;document.body.style.overflow="hidden";
+  fit();tip.style.opacity=".9";setTimeout(function(){tip.style.opacity="0"},3200);
+  if(!hdLoaded){load.hidden=false;var hi=new Image();hi.onload=function(){img.src=HD;hdLoaded=true;load.hidden=true};hi.onerror=function(){load.hidden=true};hi.src=HD}
+  ov.querySelector(".mz-x").focus()}
+ function close(){ov.hidden=true;document.body.style.overflow=prevOverflow;P={};pinch=null}
+ mapEl.addEventListener("click",open);
+ mapEl.setAttribute("role","button");mapEl.setAttribute("tabindex","0");mapEl.setAttribute("aria-label","Opna brekkukortið í fullum gæðum");
+ mapEl.addEventListener("keydown",function(ev){if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();open()}});
+ ov.querySelector(".mz-x").addEventListener("click",close);
+ document.addEventListener("keydown",function(ev){if(!ov.hidden&&ev.key==="Escape")close()});
+ ov.querySelector(".mz-bar").addEventListener("click",function(ev){var b=ev.target.closest("[data-z]");if(!b)return;var r=R(),z=b.getAttribute("data-z");
+  if(z==="fit")fit();else zoomTo(s*(z==="in"?1.8:1/1.8),r.width/2,r.height/2)});
+ stage.addEventListener("wheel",function(ev){ev.preventDefault();var r=R();zoomTo(s*Math.exp(-ev.deltaY*0.0018),ev.clientX-r.left,ev.clientY-r.top)},{passive:false});
+ function mid(){var k=Object.keys(P),a=P[k[0]],b=P[k[1]];return{x:(a.x+b.x)/2,y:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)}}
+ stage.addEventListener("pointerdown",function(ev){try{stage.setPointerCapture(ev.pointerId)}catch(_){}P[ev.pointerId]={x:ev.clientX,y:ev.clientY};moved=0;
+  if(Object.keys(P).length===2){var m=mid();pinch={d:m.d,s:s,x:m.x,y:m.y}}});
+ stage.addEventListener("pointermove",function(ev){var p=P[ev.pointerId];if(!p)return;var dx=ev.clientX-p.x,dy=ev.clientY-p.y;p.x=ev.clientX;p.y=ev.clientY;moved+=Math.abs(dx)+Math.abs(dy);
+  var n=Object.keys(P).length;
+  if(n>=2&&pinch){var m=mid(),r=R();x+=m.x-pinch.x;y+=m.y-pinch.y;pinch.x=m.x;pinch.y=m.y;zoomTo(pinch.s*m.d/pinch.d,m.x-r.left,m.y-r.top)}
+  else if(n===1){x+=dx;y+=dy;apply()}});
+ function up(ev){if(!P[ev.pointerId])return;delete P[ev.pointerId];
+  if(Object.keys(P).length<2)pinch=null;
+  if(Object.keys(P).length===0&&moved<10){var t=Date.now(),r=R();
+   if(t-lastTap<320){lastTap=0;if(s>min*1.6)fit();else zoomTo(Math.max(s*3,min*3),ev.clientX-r.left,ev.clientY-r.top)}else lastTap=t}}
+ stage.addEventListener("pointerup",up);stage.addEventListener("pointercancel",up);
+ window.addEventListener("resize",function(){if(ov.hidden)return;var r=R(),om=min;min=Math.min(r.width/W,r.height/H);if(s<=om*1.01)s=min;apply()});
+},0);
 /* ===== Svæðið: hnappar, opinbera kortið og tölur hvers svæðis ===== */
 setTimeout(function(){
  var chips=document.getElementById("svChips"),mapEl=document.getElementById("svMap"),out=document.getElementById("svArea"),hero=document.querySelector("#tab-svaedid .sv-hero");
