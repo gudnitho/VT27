@@ -1,0 +1,30 @@
+{
+ "name": "Val Thorens 2027",
+ "short_name": "VT27",
+ "description": "Skíðaferðin til Val Thorens, 6.–13. janúar 2027",
+ "lang": "is",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#081426",
+ "theme_color": "#081426",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
