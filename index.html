@@ -798,6 +798,7 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
 .music{top:calc(env(safe-area-inset-top,0px) + 14px)!important;bottom:auto!important}
 @media (max-width:440px){.music{padding:6px!important;gap:0!important}.music .ms,.music .ml,.music .eq{display:none!important}}
 .hero .hero-eyebrow{align-self:flex-start;max-width:100%;background:rgba(8,20,38,.72);border:1px solid rgba(255,255,255,.16);box-shadow:0 6px 18px -8px rgba(0,10,30,.6);padding:8px 14px 8px 11px;border-radius:999px;font-size:12px;letter-spacing:.14em;color:#fff;opacity:1;text-shadow:none;flex-wrap:wrap;row-gap:2px}
+.webcams{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px)}
 /* Svæðið */
 .sv-hero{background:linear-gradient(160deg,#10294b,#0a1a31);border:1px solid var(--line);border-radius:26px;padding:20px 18px;margin-bottom:16px;box-shadow:var(--shadow)}
 .sv-k{font:700 12px/1.3 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--sun);margin-bottom:12px}
@@ -1054,7 +1055,7 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
       <p class="note" style="margin:8px 0 0">Claude svarar út frá nýjustu veðurtölum í appinu og dagskránni. Svarið er ekki ný veðurspá.</p>
       <div class="chat" id="chat" aria-live="polite"></div>
     </div>
-    <button type="button" class="btn ghost" style="width:100%;margin-bottom:14px" onclick="showTab('vefmyndavelar')">Sjá vefmyndavélar →</button>
+    <button type="button" class="btn ghost" style="width:100%;margin-bottom:14px" onclick="document.querySelector('#tab-vedur .webcams').scrollIntoView({behavior:'smooth',block:'start'})">Sjá vefmyndavélar →</button>
     <div class="box"><h3>Lyftur í dag</h3><div id="liftBoard"></div></div>
     <div id="wxResorts"></div>
     <div class="box webcams">
@@ -1084,7 +1085,7 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
         <li><a href="https://www.les3vallees.com/en/live/weather/val-thorens" target="_blank" rel="noopener">Val Thorens og Cime Caron – 3 Vallées</a></li>
         <li><a href="https://www.les3vallees.com/en/live/weather/meribel" target="_blank" rel="noopener">Méribel og Mont Vallon – 3 Vallées</a></li>
         <li><a href="https://www.les3vallees.com/en/live/weather/courchevel" target="_blank" rel="noopener">Courchevel 1850 og Saulire – 3 Vallées</a></li>
-        <li><a href="https://snow-forecast.com/resorts/Val-Thorens/6day/mid" target="_blank" rel="noopener">Snjóspá 6 daga – Snow-Forecast</a></li>
+        <li><a href="https://www.snow-forecast.com/resorts/Val-Thorens/6day/mid" target="_blank" rel="noopener">Snjóspá 6 daga – Snow-Forecast</a></li>
       </ul>
     </div>
   </section>
@@ -1338,7 +1339,7 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
       <p class="note" style="margin:0 0 10px">Kostir þess að kaupa á netinu: engin biðröð við komu (passar sóttir í sjálfsala eða sendir heim), og hægt er að afpanta eða breyta frítt fram að fyrsta skíðadegi. Athugið afmælisdaga — sá sem verður 18 ára fyrir 7. janúar telst fullorðinn.</p>
       <div class="lacts">
         <a class="lbtn" href="https://www.les3vallees.com/en/skipass/family-flex" target="_blank" rel="noopener">Family Flex – 3 Vallées</a>
-        <a class="lbtn" href="https://www.les3vallees.com/en/skipass/solo-pass" target="_blank" rel="noopener">6 daga passi (stakur) – 3 Vallées</a>
+        <a class="lbtn" href="https://www.les3vallees.com/en/skipass/adult-week-solo-pass" target="_blank" rel="noopener">6 daga passi (stakur) – 3 Vallées</a>
       </div>
       <p class="note" style="margin:8px 0 0">⚠️ Veljið alltaf <b>Les 3 Vallées</b>, ekki „Val Thorens–Orelle“. Sá passi gildir ekki í Méribel og Courchevel.</p>
     </div>
