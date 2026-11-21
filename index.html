@@ -1238,22 +1238,6 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
       <span class="gp-tx"><b>Albúm ferðarinnar á Google Photos</b><small>Allar myndir hópsins á einum stað. Opnaðu albúmið og bættu þínum myndum við með „+“ hnappnum.</small></span>
       <span class="gp-go" aria-hidden="true">Opna →</span>
     </a>
-    <div class="box upload" id="upBox">
-      <div style="min-width:0;flex:1 1 240px">
-        <h3>Myndir hópsins</h3>
-        <p style="margin:0">Eða hladdu myndum beint hingað í appið. Nýjustu myndirnar birtast líka á forsíðunni, undir snjókomunni.</p>
-      </div>
-      <label class="btn" for="photoIn" id="photoLbl">Bæta við myndum</label>
-      <input type="file" id="photoIn" accept="image/*" multiple hidden>
-    </div>
-    <p class="note" id="upStatus" style="margin:-4px 0 12px"></p>
-    <div class="gallery" id="gallery">
-      <div class="g-empty">
-        <svg viewBox="0 0 120 60" aria-hidden="true"><path d="M0 60 L30 22 L44 36 L66 8 L92 40 L104 30 L120 60Z" fill="currentColor" opacity=".25"/><path d="M60 14 L66 8 L72 15 L68 13 L65 16Z" fill="currentColor"/></svg>
-        <p>Engar myndir enn. Fyrstu myndirnar koma vonandi 7. janúar.</p>
-      </div>
-    </div>
-    <p class="note" id="photoOff" hidden>Myndasafnið virkar fyrir þá sem eru innskráðir í Claude og hafa ritstjóraaðgang að appinu.</p>
   </section>
 
   
@@ -1299,20 +1283,7 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
       </ul>
     </div>
     <div class="box pass">
-      <h3>Lyftupassar – Family Flex</h3>
-      <p style="margin:0 0 8px">Allir kaupa <b>6 daga passa í Les 3 Vallées</b> — Family Flex fyrir fjölskyldur, annars stakan passa.</p>
-      <p style="margin:0 0 6px"><b>Family Flex:</b> allir í fjölskyldunni greiða barnaverð — um <b>€345</b> á mann í stað €421 fyrir fullorðna (6 dagar, 3 Vallées, 2026/27).</p>
-      <ul style="margin:0 0 8px">
-        <li>Minnst 3 saman: hámark 2 fullorðnir (18–74 ára) og minnst 1 barn (5–17 ára).</li>
-        <li>Allir sama svæði og sama fjölda samfelldra daga, greitt í einu lagi.</li>
-        <li>Best að kaupa á netinu fyrir ferðina.</li>
-      </ul>
-      <p class="note" style="margin:0 0 10px">Kostir þess að kaupa á netinu: engin biðröð við komu (passar sóttir í sjálfsala eða sendir heim), og hægt er að afpanta eða breyta frítt fram að fyrsta skíðadegi. Athugið afmælisdaga — sá sem verður 18 ára fyrir 7. janúar telst fullorðinn.</p>
-      <div class="lacts">
-        <a class="lbtn" href="https://www.les3vallees.com/en/skipass/family-flex" target="_blank" rel="noopener">Family Flex – 3 Vallées</a>
-        <a class="lbtn" href="https://www.les3vallees.com/en/skipass/adult-week-solo-pass" target="_blank" rel="noopener">6 daga passi (stakur) – 3 Vallées</a>
-      </div>
-      <p class="note" style="margin:8px 0 0">⚠️ Veljið alltaf <b>Les 3 Vallées</b>, ekki „Val Thorens–Orelle“. Sá passi gildir ekki í Méribel og Courchevel.</p>
+      <p style="margin:0">🎟️ <b>Lyftupassi:</b> veljið alltaf <b>Les 3 Vallées</b>, ekki „Val Thorens–Orelle“. Sá passi gildir ekki í Méribel og Courchevel.</p>
     </div>
     <div class="box sv-fr">
       <h3>Smá franska</h3>
@@ -1842,14 +1813,10 @@ function tipsHTML(t){return t&&t.length?`<div class="box"><h3>Gott að vita</h3>
 function renderDay(){
  const d=DAYS.find(x=>x.id===cur);const m=meetData[d.id];const a=areaOf(d);
  const chosen=a?a.id:null,isShared=!!planShared[d.id],isLocal=!isShared&&!!planLocal[d.id];
- const meet=`<div class="meet">
-    <span class="lab">Hittingur dagsins</span>
-    <span class="val" id="meetVal">${m&&m.place?esc(m.place):'<span class="note">Ekki ákveðið enn</span>'}</span>
-    ${canShared?`<form id="meetForm"><input id="meetInput" placeholder="t.d. Kl. 8:50 við skíðageymslu hótelsins" value="${m&&m.place?esc(m.place):''}" maxlength="140"><button class="btn ghost" type="submit">Uppfæra</button></form>`:''}
-  </div>`;
+ const meet=`<div class="meet"><span class="lab">Morgunmatur</span><span class="val">Allir saman á Marielle — þar er planið ákveðið</span></div>`;
  if(!a){
   $("#daycard").innerHTML=`<span class="sign zone-TR">${esc(d.sign)}</span><h2>${esc(d.title)}</h2>
-   <p class="sub">${WDF[d.dw]} ${d.dn}. janúar — ${esc(d.sub)}</p>${meet}${tl(d.items)}${tipsHTML(d.tips)}`;
+   <p class="sub">${WDF[d.dw]} ${d.dn}. janúar — ${esc(d.sub)}</p>${tl(d.items)}${tipsHTML(d.tips)}`;
  }else{
   $("#daycard").innerHTML=`<span class="sign zone-${a.zone}">Skíðadagur ${d.n}</span>
    <div class="picker" role="radiogroup" aria-label="Svæði dagsins">
@@ -1871,8 +1838,6 @@ function renderDay(){
   if(typeof PLANS!=="undefined"&&PLANS&&PLANS[a.id])mountRoute($("#rmap"),PLANS[a.id].segs,{lunchAfter:PLANS[a.id].lunchAfter,default3d:true});
  }
  const dc=$("#daycard");dc.classList.remove("anim");void dc.offsetWidth;dc.classList.add("anim");
- const f=$("#meetForm");if(f)f.addEventListener("submit",async e=>{e.preventDefault();const v=$("#meetInput").value.trim();
-   try{await db.doc("meet/"+d.id).set({place:v,by:myName()||"",ts:Date.now()})}catch(err){shareFail(err)}});
 }
 async function chooseArea(d,k){
  if(canShared&&db){const next=Object.assign({},planShared,{[d.id]:k});planShared=next;renderStrip();renderDay();
@@ -1899,7 +1864,7 @@ const myName=()=>store.get("vt-name","");
 function shareFail(err){if(err&&err.code==="invalid_argument"){canShared=false;applyShared();alertBox("Þú hefur ekki skrifaðgang að sameiginlegu hlutunum.")}
  else if(err&&err.code==="quota_exceeded"){alertBox("Gagnageymslan er full. Eyðið eldri skilaboðum.")}}
 function alertBox(t){console.warn(t)}
-function applyShared(){var bf=document.getElementById("bookForm");if(bf)bf.hidden=!canShared;$("#upBox").hidden=!canShared;$("#photoOff").hidden=!(sharedKnown&&(!db||!canShared));renderDay()}
+function applyShared(){var bf=document.getElementById("bookForm");if(bf)bf.hidden=!canShared;renderDay()}
 function fmt(ts){const d=new Date(ts);return d.toLocaleDateString("is-IS",{day:"numeric",month:"short"})+" "+d.toLocaleTimeString("is-IS",{hour:"2-digit",minute:"2-digit"})}
 applyShared();
 (async()=>{
@@ -2271,10 +2236,10 @@ function mapSVG(d){
 
 /* ===== Photos ===== */
 var photos=[],assets=null,lbIx=0,slideTimer=null;
-(async()=>{if(!window.claude||!window.claude.use)return;assets=await window.claude.use("assets");if(!assets){$("#upBox").hidden=true}})();
+(async()=>{if(!window.claude||!window.claude.use)return;assets=await window.claude.use("assets");})();
 function photoSrc(p){return p.url||("/_blob/"+p.id)}
 function renderGallery(){
- const g=$("#gallery");if(!photos.length)return;
+ const g=$("#gallery");if(!g||!photos.length)return;
  g.innerHTML=photos.map((p,i)=>`<button type="button" data-i="${i}" aria-label="Opna mynd ${i+1}"><img loading="lazy" src="${esc(photoSrc(p))}" alt="Mynd frá ${esc(p.by||"hópnum")}"><span class="by">${esc(p.by||"")}${p.ts?" · "+new Date(p.ts).toLocaleDateString("is-IS",{day:"numeric",month:"short"}):""}</span></button>`).join("");
  g.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>openLb(+b.dataset.i)));
 }
@@ -2296,7 +2261,7 @@ function shrink(file){return new Promise((res,rej)=>{const url=URL.createObjectU
  im.onload=()=>{const m=1800,sc=Math.min(1,m/Math.max(im.width,im.height));const c=document.createElement("canvas");c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);
   c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(url);c.toBlob(b=>b?res(b):rej(new Error("blob")),"image/jpeg",.85)};
  im.onerror=()=>{URL.revokeObjectURL(url);rej(new Error("load"))};im.src=url})}
-$("#photoIn").addEventListener("change",async e=>{
+if($("#photoIn"))$("#photoIn").addEventListener("change",async e=>{
  const files=[...e.target.files];e.target.value="";if(!files.length||!assets||!db)return;
  const st=$("#upStatus");let ok=0;
  for(const [i,f] of files.entries()){st.textContent=`Hleð upp mynd ${i+1} af ${files.length}…`;
@@ -2387,7 +2352,8 @@ try{const emb=JSON.parse($("#wxEmbed").textContent);renderWx(emb)}catch(e){}
   return fetch(u).then(function(r){if(!r.ok)throw new Error("wx");return r.json()})}
  var ids=Object.keys(PTS),jobs=[];ids.forEach(function(id){PTS[id].forEach(function(p){jobs.push(get(p))})});
  var claudeWx=fetch("wx.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).catch(function(){return null}).then(function(j){
-  if(j&&j.updated&&Array.isArray(j.resorts)&&(!emb.updated||new Date(j.updated)>=new Date(emb.updated))){emb=j;if(j.answers){window.wxAnswers=j.answers;window.wxAnswersAt=j.updated}renderWx(j)}});
+  if(j&&j.updated&&Array.isArray(j.resorts)&&(!emb.updated||new Date(j.updated)>=new Date(emb.updated))){emb=j;if(j.answers){window.wxAnswers=j.answers;window.wxAnswersAt=j.updated}renderWx(j)}
+  if(j&&(j.suggest||j.status)){wxData=Object.assign({},wxData||{},j.suggest?{suggest:j.suggest}:{},j.status?{status:j.status}:{});if(typeof AREA_KEYS!=="undefined"&&AREA_KEYS){try{renderSuggest();renderDayStatus();renderLiftBoard()}catch(e){}}}});
  claudeWx.then(function(){return Promise.all(jobs)}).then(function(res){
   var now=parisHour(),embAge=emb.updated?(Date.now()-new Date(emb.updated).getTime())/36e5:999,fresh=embAge<36;
   var out=JSON.parse(JSON.stringify(emb));
