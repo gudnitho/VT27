@@ -2882,7 +2882,7 @@ function renderDayStatus(){
 function renderSuggest(){
  const box=document.getElementById("suggest");if(!box)return;const sg=wxData&&wxData.suggest;
  if(!sg||!sg.area||!AREAS[sg.area]){box.hidden=true;return}
- const d=DAYS.find(x=>x.date===sg.date);const tripEnd="2027-01-13";if(!d||sg.date>tripEnd){box.hidden=true;return}
+ const d=DAYS.find(x=>x.date===sg.date);const tripEnd="2027-01-13";if(!d||sg.date>tripEnd||new Date().toISOString().slice(0,10)<"2027-01-04"){box.hidden=true;return}
  const A=AREAS[sg.area];const chosen=d.zone==="SKI"?areaOf(d):null;const same=chosen&&chosen.id===sg.area;
  box.hidden=false;box.innerHTML=`<div class="sg-k">Tillaga Claude · ${WDF[d.dw]} ${d.dn}. jan</div>
   <div class="sg-main"><span class="achip z-${A.zone}" aria-hidden="true"><i></i>${esc(A.chip)}</span><p>${esc(sg.text||"")}</p></div>
