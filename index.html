@@ -799,6 +799,15 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
 @media (max-width:440px){.music{padding:6px!important;gap:0!important}.music .ms,.music .ml,.music .eq{display:none!important}}
 .hero .hero-eyebrow{align-self:flex-start;max-width:100%;background:rgba(8,20,38,.72);border:1px solid rgba(255,255,255,.16);box-shadow:0 6px 18px -8px rgba(0,10,30,.6);padding:8px 14px 8px 11px;border-radius:999px;font-size:12px;letter-spacing:.14em;color:#fff;opacity:1;text-shadow:none;flex-wrap:wrap;row-gap:2px}
 .webcams{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px)}
+.eat-chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none}
+.eat-chips button{flex:none;display:inline-flex;align-items:center;gap:7px;border:0;cursor:pointer;background:var(--chip);color:var(--ink);border-radius:999px;padding:9px 13px;font:700 15px/1 var(--display);letter-spacing:.04em;text-transform:uppercase}
+.eat-chips button i{width:9px;height:9px;border-radius:50%}
+.eat-g{margin:6px 0 22px;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px)}
+.eat-gh{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.eat-gh h3{margin:0;font:800 26px/1 var(--display);text-transform:uppercase;letter-spacing:.02em}
+.eat-gh i{width:12px;height:12px;border-radius:50%;flex:none}
+.eat-gh span{margin-left:auto;font:600 13px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.eat-gs{margin:-4px 0 10px;color:var(--muted);font-size:14px}
 /* Svæðið */
 .sv-hero{background:linear-gradient(160deg,#10294b,#0a1a31);border:1px solid var(--line);border-radius:26px;padding:20px 18px;margin-bottom:16px;box-shadow:var(--shadow)}
 .sv-k{font:700 12px/1.3 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--sun);margin-bottom:12px}
@@ -907,6 +916,7 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
     <button role="tab" aria-selected="false" data-tab="hopur">Hópurinn</button>
     <button role="tab" aria-selected="false" data-tab="vedur">Veður</button>
     <button role="tab" aria-selected="false" data-tab="apres">Après Ski</button>
+    <button role="tab" aria-selected="false" data-tab="veitingar">Veitingar</button>
     <button role="tab" aria-selected="false" data-tab="svaedid">Svæðið</button>
     <button role="tab" aria-selected="false" data-tab="ferdin">Ferðin</button>
     <button role="tab" aria-selected="false" data-tab="slopes">Slopes &amp; myndir</button>
@@ -1349,6 +1359,13 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
     </div>
   </section>
 
+  <!-- VEITINGAR -->
+  <section id="tab-veitingar" role="tabpanel" hidden>
+    <h2 class="sec-title">Veitingastaðir</h2>
+    <p class="note" style="margin-top:-6px">Hádegisstaðir í brekkunum, flokkaðir eftir svæðum. Bókið borð fyrir 15 manns með góðum fyrirvara, helst daginn áður.</p>
+    <div class="eat-chips" id="eatChips"></div>
+    <div id="eatList"></div>
+  </section>
   <!-- PAKKLISTI -->
   <section id="tab-pakk" role="tabpanel" hidden>
     <h2 class="sec-title">Pakklisti</h2>
@@ -1440,7 +1457,7 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
   <div class="msheet-card">
     <div class="msheet-h"><b>Meira</b><button type="button" class="msheet-x" data-close aria-label="Loka">✕</button></div>
     <div class="msheet-grid">
-      <button type="button" data-go="apres"><span>Après Ski</span><small>Folie Douce, 360, F7</small></button>
+      <button type="button" data-go="apres"><span>Après Ski</span><small>Folie Douce, 360, F7</small></button><button type="button" data-go="veitingar"><span>Veitingar</span><small>Hádegisstaðir eftir svæðum</small></button>
       <button type="button" data-go="marielle"><span>Marielle</span><small>Hótelið, 112 og spa</small></button>
       <button type="button" data-go="hopur"><span>Hópurinn</span><small>Fjölskyldurnar þrjár</small></button>
       <button type="button" data-go="svaedid"><span>Svæðið</span><small>3 Vallées í tölum og góð ráð</small></button>
@@ -1483,6 +1500,23 @@ const LUNCH={
  chaletpierres:{name:"Le Chalet de Pierres",where:"Á Verdons-brautinni, Courchevel 1850",tip:"Þekktasti staður Courchevel: Savoie-réttir og sjávarfang á sólpalli sem snýr að Saulire. Dýr.",tel:"+33 4 79 08 18 61",web:"https://airelles.com/en/destination/courchevel-hotel/restaurants/chalet-de-pierres",fb:"https://www.facebook.com/chaletdepierres"},
  soucoupe:{name:"La Soucoupe",where:"Við Col de la Loze, milli Courchevel og Méribel",tip:"Sveitalegur staður með kjöti grilluðu yfir opnum eldi.",tel:"+33 4 79 08 21 34",web:"https://www.lasoucoupecourchevel.com/",ig:"https://www.instagram.com/la_soucoupe_courchevel/",fb:"https://www.facebook.com/La-soucoupe-courchevel-104394694409291/"}
 };
+/* ===== Veitingastaðir eftir svæðum ===== */
+setTimeout(function(){
+ const G=[
+  {id:"vt",name:"Val Thorens",sub:"Í kringum þorpið, Péclet og Cime Caron",c:"var(--glacier)",k:["fruitiere","caron","lacs","marine","peclet","caron3200"]},
+  {id:"lm",name:"Les Menuires & St Martin",sub:"Belleville-dalurinn, á leiðinni frá Val Thorens",c:"var(--sun)",k:["pepe","bouche","roc7","le2800","etoile","laloy"]},
+  {id:"me",name:"Méribel",sub:"Skógurinn, Altiport og Saulire",c:"var(--green)",k:["plandesmains","rondpoint","blanchot","pierres"]},
+  {id:"co",name:"Courchevel",sub:"1850, Moriond og Col de la Loze",c:"var(--accent)",k:["chaletpierres","caphorn","belair","soucoupe"]}];
+ function card(k){const l=LUNCH[k];if(!l)return"";const telRaw=l.tel?l.tel.replace(/\s/g,""):"";
+  return `<article class="lcard"><h4>${esc(l.name)}</h4><p class="lunch-w">${esc(l.where)}</p><p class="ltip">${esc(l.tip)}</p>
+   <div class="lacts">${l.tel?`<a class="lbtn" href="tel:${esc(telRaw)}">Hringja</a>`:""}${l.web?`<a class="lbtn" href="${esc(l.web)}" target="_blank" rel="noopener">${esc(l.webLabel||"Vefsíða")}</a>`:""}${l.ig?`<a class="lbtn ig" href="${esc(l.ig)}" target="_blank" rel="noopener">Instagram</a>`:""}${l.fb?`<a class="lbtn" href="${esc(l.fb)}" target="_blank" rel="noopener">Facebook</a>`:""}</div>
+   ${l.tel?`<p class="lnum"><span class="copy">${esc(l.tel)}</span></p>`:""}</article>`}
+ const list=document.getElementById("eatList"),chips=document.getElementById("eatChips");if(!list)return;
+ list.innerHTML=G.map(g=>`<section class="eat-g" id="eat-${g.id}"><div class="eat-gh"><i style="background:${g.c}"></i><h3>${esc(g.name)}</h3><span>${g.k.filter(k=>LUNCH[k]).length} staðir</span></div><p class="eat-gs">${esc(g.sub)}</p><div class="lgrid">${g.k.map(card).join("")}</div></section>`).join("");
+ chips.innerHTML=G.map(g=>`<button type="button" data-eat="${g.id}"><i style="background:${g.c}"></i>${esc(g.name)}</button>`).join("");
+ chips.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{const el=document.getElementById("eat-"+b.dataset.eat);if(el)el.scrollIntoView({behavior:"smooth",block:"start"})}));
+},0);
+
 const AREAS={
  vt:{id:"vt",zone:"VT",chip:"Val Thorens",title:"Val Thorens – bestu brekkurnar",
   sub:"Heimasvæðið: Péclet-jökullinn, Cime Caron í 3200 m og langar rauðar með stórkostlegu útsýni.",
@@ -1634,7 +1668,7 @@ document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("clic
 function showTab(t){document.querySelectorAll("nav.tabs button").forEach(b=>{b.setAttribute("aria-selected",b.dataset.tab===t);if(b.dataset.tab===t&&b.scrollIntoView)b.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"})});
  document.querySelectorAll("section[role=tabpanel]").forEach(s=>{s.hidden=s.id!=="tab-"+t;if(!s.hidden){s.classList.remove("enter");void s.offsetWidth;s.classList.add("enter")}});store.set("vt-tab",t);if(typeof syncBnav==="function")syncBnav(t);if(t==="idag"&&typeof renderIdag==="function")renderIdag()}
 const hashTab=(location.hash||"").slice(1);
-var bootTab=["idag","dagskra","heim","apres","marielle","hopur","vedur","svaedid","ferdin","slopes","pakk"].includes(hashTab)?hashTab:store.get("vt-tab","idag");if(!["idag","dagskra","heim","apres","marielle","hopur","vedur","svaedid","ferdin","slopes","pakk"].includes(bootTab))bootTab=bootTab==="myndir"?"slopes":bootTab==="vefmyndavelar"?"vedur":"idag";
+var bootTab=["idag","dagskra","heim","apres","veitingar","marielle","hopur","vedur","svaedid","ferdin","slopes","pakk"].includes(hashTab)?hashTab:store.get("vt-tab","idag");if(!["idag","dagskra","heim","apres","veitingar","marielle","hopur","vedur","svaedid","ferdin","slopes","pakk"].includes(bootTab))bootTab=bootTab==="myndir"?"slopes":bootTab==="vefmyndavelar"?"vedur":"idag";
 
 /* days */
 const todayStr=new Date().toISOString().slice(0,10);
@@ -2951,7 +2985,7 @@ function renderIdag(){const out=document.getElementById("idagOut");if(!out)retur
   <div class="box"><h3>Taktur dagsins</h3><div class="id-rhythm">${R.map(([t,x,c])=>`<div><em style="color:${c}">${esc(t)}</em><i style="background:${c}"></i><span>${esc(x)}</span></div>`).join("")}</div></div>`;
  out.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.day){cur=b.dataset.day;renderStrip();renderDay()}showTab(b.dataset.go);scrollTo({top:document.querySelector(".wrap").offsetTop-8,behavior:"smooth"})}));
 }
-function syncBnav(t){document.querySelectorAll(".bnav [data-go],.msheet [data-go]").forEach(b=>{b.setAttribute("aria-current",b.dataset.go===t||(b.dataset.go==="more"&&["apres","marielle","hopur","svaedid","ferdin","slopes","pakk"].includes(t))?"page":"false")})}
+function syncBnav(t){document.querySelectorAll(".bnav [data-go],.msheet [data-go]").forEach(b=>{b.setAttribute("aria-current",b.dataset.go===t||(b.dataset.go==="more"&&["apres","veitingar","marielle","hopur","svaedid","ferdin","slopes","pakk"].includes(t))?"page":"false")})}
 (function(){const sh=document.getElementById("msheet");
  const open=()=>{sh.hidden=false;const f=sh.querySelector(".msheet-grid button");if(f)f.focus()},close=()=>{sh.hidden=true};
  document.querySelectorAll(".bnav [data-go]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.go==="more"){open();return}showTab(b.dataset.go);scrollTo({top:document.querySelector(".wrap").offsetTop-8,behavior:"smooth"})}));
@@ -3008,7 +3042,7 @@ showTab(bootTab);setInterval(()=>{const s=document.getElementById("tab-idag");if
   bag:'<rect x="10" y="20" width="44" height="34" rx="4"/><path d="M24 20 V12 H40 V20"/><path d="M10 34 H54"/><path d="M28 30 V38 M36 30 V38"/>',
   em:'<path d="M12 54 V12 L32 38 L52 12 V54" stroke-width="7"/>',
   sign:'<path d="M32 8 V58"/><path d="M14 14 H44 L50 20 L44 26 H14 Z"/><path d="M50 32 H20 L14 38 L20 44 H50 Z"/>'};
- const WC={svaedid:["#7DD3FC","#081426","#081426"],idag:["#F2F6FB","#FF6B3D","#081426"],dagskra:["#7DD3FC","#081426","#081426"],heim:["#FF6B3D","#F2F6FB","#081426"],marielle:["#081426","#FFB547","#FFB547"],hopur:["#FFB547","#7DD3FC","#081426"],vedur:["#BFE3FF","#F2F6FB","#0B2A4A"],vefmyndavelar:["#0F2647","#7DD3FC","#7DD3FC"],apres:["#FF4F8B","#FFB547","#1A0710"],slopes:["#A3E635","#081426","#0B1A05"],myndir:["#F2F6FB","#A3E635","#081426"],rad:["#163A66","#FF6B3D","#F2F6FB"],ferdin:["#FFB547","#081426","#081426"],pakk:["#5EEAD4","#FFB547","#062A24"],neyd:["#F87171","#F2F6FB","#2A0505"]};
+ const WC={svaedid:["#7DD3FC","#081426","#081426"],idag:["#F2F6FB","#FF6B3D","#081426"],dagskra:["#7DD3FC","#081426","#081426"],heim:["#FF6B3D","#F2F6FB","#081426"],marielle:["#081426","#FFB547","#FFB547"],hopur:["#FFB547","#7DD3FC","#081426"],vedur:["#BFE3FF","#F2F6FB","#0B2A4A"],vefmyndavelar:["#0F2647","#7DD3FC","#7DD3FC"],apres:["#FF4F8B","#FFB547","#1A0710"],slopes:["#A3E635","#081426","#0B1A05"],myndir:["#F2F6FB","#A3E635","#081426"],rad:["#163A66","#FF6B3D","#F2F6FB"],ferdin:["#FFB547","#081426","#081426"],pakk:["#5EEAD4","#FFB547","#062A24"],veitingar:["#FFB547","#FF6B3D","#2A1405"],neyd:["#F87171","#F2F6FB","#2A0505"]};
  const PAT={
   idag:c=>[`linear-gradient(240deg,transparent 75%,${c} 75.5%),linear-gradient(120deg,transparent 75%,${c} 75.5%)`,"72px 42px"],
   dagskra:c=>[`repeating-linear-gradient(-16deg,transparent 0 40px,${c} 40px 44px)`,"auto"],
@@ -3024,7 +3058,7 @@ showTab(bootTab);setInterval(()=>{const s=document.getElementById("tab-idag");if
   ferdin:c=>[`repeating-linear-gradient(90deg,${c} 0 26px,transparent 26px 44px)`,"auto"],
   pakk:c=>[`repeating-linear-gradient(0deg,${c} 0 6px,transparent 6px 30px),repeating-linear-gradient(90deg,${c} 0 6px,transparent 6px 30px)`,"auto"],
   neyd:c=>[`repeating-linear-gradient(-45deg,${c} 0 22px,transparent 22px 44px)`,"auto"]};
- const ALTS={svaedid:[3230,"Les 3 Vallées","three"],idag:[2300,"Val Thorens","peak"],dagskra:[3200,"Les 3 Vallées","three"],heim:[1850,"Hotel Marielle","hotel"],marielle:[2253,"Marielle","em"],hopur:[2253,"Hópurinn","family"],vedur:[2738,"Veður","weather"],vefmyndavelar:[2804,"Cime Caron","cam"],apres:[2368,"La Folie Douce","apres"],slopes:[3230,"Slopes & myndir","phone"],ferdin:[2300,"Ferðin","plane"],myndir:[2704,"Myndir","photo"],rad:[2850,"Leiðir & ráð","sign"],pakk:[2300,"Pakklisti","bag"],neyd:[2300,"Neyð","bag"]};
+ const ALTS={veitingar:[2500,"Veitingastaðir","peak"],svaedid:[3230,"Les 3 Vallées","three"],idag:[2300,"Val Thorens","peak"],dagskra:[3200,"Les 3 Vallées","three"],heim:[1850,"Hotel Marielle","hotel"],marielle:[2253,"Marielle","em"],hopur:[2253,"Hópurinn","family"],vedur:[2738,"Veður","weather"],vefmyndavelar:[2804,"Cime Caron","cam"],apres:[2368,"La Folie Douce","apres"],slopes:[3230,"Slopes & myndir","phone"],ferdin:[2300,"Ferðin","plane"],myndir:[2704,"Myndir","photo"],rad:[2850,"Leiðir & ráð","sign"],pakk:[2300,"Pakklisti","bag"],neyd:[2300,"Neyð","bag"]};
  const fmt=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,".");
  const wp=document.createElement("div");wp.className="lw";wp.setAttribute("aria-hidden","true");
  wp.innerHTML='<div class="lw-b lw-b2"></div><div class="lw-b lw-b1"><div class="lw-lines"></div></div><div class="lw-tx"><div><svg class="lw-ic" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></svg><span class="lw-name"></span></div></div>';
@@ -3034,8 +3068,8 @@ showTab(bootTab);setInterval(()=>{const s=document.getElementById("tab-idag");if
   h.innerHTML=txt.split(/\s+/).map(w=>'<span class="lw-w" aria-hidden="true">'+[...w].map(c=>'<span class="lw-c">'+c.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</span>').join("")+'</span>').join(" ");return h}
  function riseTitle(sec){const h=splitTitle(sec);if(!h)return;h.querySelectorAll(".lw-c").forEach((c,i)=>c.animate([{transform:"translateY(110%) rotate(6deg)"},{transform:"none"}],{duration:680,delay:40+i*26,easing:"cubic-bezier(.2,.9,.2,1)",fill:"backwards"}))}
  /* ===== Skiptingar 2027: gler, brottfarir, hríð, flug ===== */
- const TXM={idag:"glass",marielle:"glass",hopur:"glass",dagskra:"fly",heim:"fly",slopes:"fly",vedur:"snow",apres:"snow",ferdin:"board",pakk:"board"};
- const TXN={svaedid:"Svæðið",idag:"Í dag",dagskra:"Dagskrá",heim:"Heim á hótel",marielle:"Marielle",hopur:"Hópurinn",vedur:"Veður",apres:"Après Ski",ferdin:"Ferðin",slopes:"Slopes & myndir",pakk:"Pakklisti"};
+ const TXM={veitingar:"snow",idag:"glass",marielle:"glass",hopur:"glass",dagskra:"fly",heim:"fly",slopes:"fly",vedur:"snow",apres:"snow",ferdin:"board",pakk:"board"};
+ const TXN={veitingar:"Veitingastaðir",svaedid:"Svæðið",idag:"Í dag",dagskra:"Dagskrá",heim:"Heim á hótel",marielle:"Marielle",hopur:"Hópurinn",vedur:"Veður",apres:"Après Ski",ferdin:"Ferðin",slopes:"Slopes & myndir",pakk:"Pakklisti"};
  let tap={x:innerWidth/2,y:innerHeight-60};addEventListener("pointerdown",e=>{tap={x:e.clientX,y:e.clientY}},{passive:true,capture:true});
  const tx=document.createElement("div");tx.className="tx27";tx.setAttribute("aria-hidden","true");document.body.appendChild(tx);
  const wait=ms=>new Promise(r=>setTimeout(r,ms));
