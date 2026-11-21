@@ -1243,8 +1243,6 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
   <section id="tab-svaedid" role="tabpanel" hidden>
     <h2 class="sec-title">Svæðið</h2>
     <div class="sv-chips" id="svChips" role="group" aria-label="Veldu svæði"></div>
-    <div class="svm" id="svMap"></div>
-    <div id="svArea"></div>
     <div class="sv-hero">
       <div class="sv-k">Les 3 Vallées · stærsta samtengda skíðasvæði heims</div>
       <div class="sv-stats">
@@ -1260,6 +1258,8 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
       <p class="sv-sub">7 skíðaþorp í 3 dölum · 85% svæðisins ofan 1800 m · 66 veitingastaðir í fjallinu</p>
     </div>
 
+    <div class="svm" id="svMap"></div>
+    <div id="svArea"></div>
     <div class="box sv-tips">
       <h3>Gott að vita</h3>
       <ul>
@@ -1538,99 +1538,58 @@ setTimeout(function(){
    chat.innerHTML="";chat.appendChild(q);chat.appendChild(a)})});
 },50);
 
-/* ===== Svæðið: hnappar, kort og upplýsingar um hvert svæði ===== */
+/* ===== Svæðið: hnappar, opinbera kortið og tölur hvers svæðis ===== */
 setTimeout(function(){
  var chips=document.getElementById("svChips"),mapEl=document.getElementById("svMap"),out=document.getElementById("svArea"),hero=document.querySelector("#tab-svaedid .sv-hero");
- if(!chips||!mapEl||typeof RN==="undefined"||typeof rBg!=="function")return;
- var G="#2BD46E",B="#3B82F6",R="#EF4444",K="#111";
+ if(!chips||!mapEl||!hero)return;
+ var MAP="kort-3vallees.jpg";
  var A={
-  all:{name:"Allt svæðið",c:"#E2E8F0"},
-  vt:{name:"Val Thorens",c:"#7DD3FC",eat:"vt",nodes:["VT","PEC","CC","CARb","CAS","CTH","CHB"],k:"Belleville-dalurinn · heimasvæðið",
-   st:[["2.300 m","hæð þorpsins"],["3.200 m","Cime Caron"],["≈150 km","brekkur með Orelle"]],
-   juicy:["<b>Hæsta skíðaþorp Evrópu.</b> Þið gangið út af hótelinu beint á skíðin í 2.300 m hæð. Allar brekkur eru ofan skógarmarka, svo snjórinn er nánast öruggur allan veturinn.",
-    "<b>Cime Caron-kláfurinn</b> tekur um 150 manns í einu. Efst sést yfir stóran hluta Alpanna, í heiðskíru alla leið til Mont Blanc.",
-    "<b>Péclet-jökullinn:</b> þar er snjórinn oftast bestur á morgnana, og þaðan liggja langar, breiðar brekkur beint niður í þorpið.",
-    "Val Thorens hefur oftar en nokkurt annað svæði verið valið besta skíðasvæði heims á World Ski Awards."],
-   runs:[["Col de l'Audzin",R],["Christine",R],["Cime",R],["Tête Ronde",B],["Falaise",R],["Combe de Caron",K]],
-   tip:"Efst er kalt og vindasamt í janúar. Hafið buff eða andlitsgrímu, og byrjið daginn á Péclet áður en sólin hitar brekkurnar."},
-  orelle:{name:"Orelle",c:"#A78BFA",eat:"vt",nodes:["BOU","PLB","ROS","CTH"],k:"Maurienne-megin · falinn fjársjóður",
-   st:[["3.230 m","Bouchet, hæsti punktur 3 Vallées"],["Suður","brekkurnar snúa í sólina"],["16:15","síðasta lyfta heim"]],
-   juicy:["<b>Hæsti punktur alls 3 Vallées</b> er hér: Pointe du Bouchet í 3.230 m. Þaðan sést yfir Maurienne-dalinn og í átt að Ítalíu.",
-    "Brekkurnar snúa í suður og fá sól allan daginn. Þær eru oft næstum tómar þótt Val Thorens sé troðfullt hinum megin við hrygginn.",
-    "<b>Coraïa</b> frá Bouchet er ein lengsta og flottasta rauða brekkan á öllu svæðinu.",
-    "Þangað er farið yfir Col de Thorens eða um Cime Caron, og heim aftur með Orelle-Caron-kláfnum."],
-   runs:[["Coraïa",R],["Lory",B],["Mauriennaise",R]],
-   tip:"Orelle-Caron-kláfurinn heim lokar um kl. 16:15. Ef hann lokar vegna vinds er löng leið heim, svo fylgist með veðrinu."},
-  lm:{name:"Les Menuires",c:"#FFB547",eat:"lm",nodes:["LM","SM","PM"],k:"Belleville-dalurinn · neðar í dalnum",
-   st:[["1.850 m","Les Menuires"],["2.804 m","Pointe de la Masse"],["1.450 m","St Martin de Belleville"]],
-   juicy:["<b>Les Menuires</b> var byggt á sjöunda áratugnum í „framtíðarstíl“. Þar fór svig karla fram á Ólympíuleikunum 1992.",
-    "<b>Pointe de la Masse</b> (2.804 m) hinum megin í dalnum er oft skjólbetri en Val Thorens og þaðan er frábært útsýni upp eftir öllum dalnum.",
-    "<b>St Martin de Belleville</b> er gamalt fjallaþorp með steinhúsum og fallegri kirkju. Það er tilvalið að skíða þangað niður í hádeginu.",
-    "<b>Chez Pépé Nicolas</b>, milli Les Menuires og Val Thorens, er einn þekktasti fjallaskáli svæðisins."],
-   runs:[["Fred Covili",R],["Lac Noir",K],["Bouquetin",B],["Jérusalem",B]],
-   tip:"Góður kostur á dögum með þoku eða roki í Val Thorens. Hér er lægra og skjólbetra, og heimleiðin er stutt um Mont de la Chambre."},
-  me:{name:"Méribel",c:"#4ADE80",eat:"me",nodes:["MV","MOT","PLA","PDM","MER","ALT","TOU","RDF"],k:"Les Allues-dalurinn · hjarta 3 Vallées",
-   st:[["1.450 m","Méribel-þorpið"],["1.750 m","Mottaret"],["2.952 m","Mont Vallon"]],
-   juicy:["Skotinn <b>Peter Lindsay</b> stofnaði Méribel árið 1938 og setti þá reglu að öll hús skyldu byggð úr tré og steini. Þess vegna lítur þorpið út eins og jólakort.",
-    "Á <b>Roc de Fer</b> fóru kvennagreinarnar fram á Ólympíuleikunum 1992 og á heimsmeistaramótinu 2023.",
-    "Brekkurnar ná niður í skóg, svo Méribel er <b>besti staðurinn þegar þoka eða flatt ljós</b> er uppi í Val Thorens.",
-    "<b>Combe du Vallon</b> frá Mont Vallon er ein lengsta og skemmtilegasta rauða brekkan í 3 Vallées."],
-   runs:[["Combe du Vallon",R],["Mauduit",R],["Roc de Fer",B],["Ours",B],["Truite",G]],
-   tip:"Til baka þarf að ná Plattières og Côte Brune frá Mottaret. Verið komin í Mottaret ekki seinna en kl. 15:30."},
-  co:{name:"Courchevel",c:"#FF6B3D",eat:"co",nodes:["C18","MOR","ARI","CHE","LTA","LPR","CVI","CLZ","SA"],k:"Saint-Bon-dalurinn · glæsilegasta svæðið",
-   st:[["1850","aðalþorpið"],["2.738 m","Saulire"],["4 þorp","1300 · 1550 · 1650 · 1850"]],
-   juicy:["<b>Courchevel 1850</b> er þekktasta lúxusskíðaþorp heims: fleiri Michelin-stjörnur en í flestum stórborgum og hönnunarbúðir við brekkurætur.",
-    "Brekkurnar eru breiðar og þykja einar þær best troðnu í Ölpunum, og neðst eru skógarbrekkur.",
-    "Í <b>Le Praz (1300)</b> eru stökkpallarnir frá Ólympíuleikunum 1992.",
-    "<b>Grand Couloir</b> frá Saulire er ein frægasta svarta brekka Frakklands. Kíkið niður hana frá toppnum, en skíðið hana aðeins ef aðstæður leyfa."],
-   runs:[["Combe Saulire",R],["Creux",B],["Lac Bleu",B],["Grand Couloir",K]],
-   tip:"Courchevel er lengst frá hótelinu, tvær dalaskiptingar hvora leið. Saulire lokar kl. 16:00, svo leggið af stað heim um kl. 15:00."}
+  all:{name:"Allt svæðið",c:"#E2E8F0",k:"Les 3 Vallées · stærsta samtengda skíðasvæði heims",km:600,l:169,top:"3.230",g:50,b:137,r:113,s:37,sub:"7 skíðaþorp í 3 dölum · 85% svæðisins ofan 1800 m"},
+  vt:{name:"Val Thorens",c:"#7DD3FC",eat:"vt",k:"Val Thorens og Orelle",km:150,l:32,top:"3.230",g:12,b:35,r:28,s:8,sub:"Þorpið er í 2.300 m · Cime Caron 3.200 m · Péclet-jökullinn",
+   poly:"760,250 830,180 1000,150 1150,190 1370,215 1370,265 1250,295 1100,330 1000,365 930,370 840,320",
+   juicy:["Hæsta skíðaþorp Evrópu. Allar brekkur eru ofan skógarmarka, svo snjórinn er nánast öruggur allan veturinn.","Cime Caron-kláfurinn tekur um 150 manns í einu og efst sést, í heiðskíru, alla leið til Mont Blanc.","Hefur oftar en nokkurt annað svæði verið valið besta skíðasvæði heims á World Ski Awards."]},
+  orelle:{name:"Orelle",c:"#A78BFA",eat:"vt",k:"Hluti af Val Thorens – Orelle",km:150,l:32,top:"3.230",g:12,b:35,r:28,s:8,sub:"Tölurnar eiga við Val Thorens og Orelle saman · Orelle sjálft hefur 5 lyftur",
+   poly:"1098,14 1386,14 1386,196 1098,196",
+   juicy:["Hæsti punktur alls 3 Vallées er hér: Pointe du Bouchet í 3.230 m.","Brekkurnar snúa í suður, fá sól allan daginn og eru oft næstum tómar.","Coraïa frá Bouchet er ein lengsta og flottasta rauða brekkan á svæðinu."]},
+  lm:{name:"Les Menuires",c:"#FFB547",eat:"lm",k:"Les Menuires og St Martin de Belleville",km:160,l:30,top:"2.850",g:12,b:39,r:22,s:8,sub:"Les Menuires 1.850 m · St Martin 1.450 m · Pointe de la Masse 2.804 m",
+   poly:"800,330 930,375 1000,370 1100,335 1250,300 1340,285 1350,330 1230,400 1100,470 1020,560 940,580 880,500 820,420",
+   juicy:["Svig karla á Ólympíuleikunum 1992 fór fram í Les Menuires.","Pointe de la Masse er oft skjólbetri en Val Thorens, með útsýni upp eftir öllum dalnum.","St Martin de Belleville er gamalt fjallaþorp með steinhúsum, tilvalið í hádeginu."]},
+  me:{name:"Méribel",c:"#4ADE80",eat:"me",k:"Méribel-dalurinn · hjarta 3 Vallées",km:150,l:43,top:"2.952",g:8,b:27,r:28,s:9,sub:"Méribel 1.450 m · Mottaret 1.750 m · Mont Vallon 2.952 m",
+   poly:"440,290 560,230 620,185 700,230 760,300 790,420 800,500 720,560 600,620 520,660 470,560 420,470 470,360",
+   juicy:["Skotinn Peter Lindsay stofnaði Méribel 1938 og setti regluna um hús úr tré og steini.","Kvennagreinarnar á Ólympíuleikunum 1992 og HM 2023 fóru fram á Roc de Fer.","Brekkurnar ná niður í skóg, svo þetta er besti staðurinn í þoku og flötu ljósi."]},
+  co:{name:"Courchevel",c:"#FF6B3D",eat:"co",k:"Saint-Bon-dalurinn · 1300 til 1850",km:150,l:57,top:"2.740",g:20,b:38,r:37,s:10,sub:"Courchevel 1850 · Moriond 1650 · Village 1550 · Le Praz 1300",
+   poly:"10,300 150,250 300,240 440,290 470,360 420,470 350,560 330,640 180,640 60,560 0,480",
+   juicy:["Courchevel 1850 er þekktasta lúxusskíðaþorp heims, með fleiri Michelin-stjörnur en flestar stórborgir.","Í Le Praz (1300) eru stökkpallarnir frá Ólympíuleikunum 1992.","Lengst frá hótelinu: Saulire lokar kl. 16:00, svo leggið af stað heim um kl. 15."]}
  };
  var ORDER=["all","vt","orelle","lm","me","co"];
- function hull(p){p=p.slice().sort(function(a,b){return a[0]-b[0]||a[1]-b[1]});if(p.length<3)return p;var cr=function(o,a,b){return(a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0])};var lo=[],up=[];
-  p.forEach(function(q){while(lo.length>=2&&cr(lo[lo.length-2],lo[lo.length-1],q)<=0)lo.pop();lo.push(q)});
-  p.slice().reverse().forEach(function(q){while(up.length>=2&&cr(up[up.length-2],up[up.length-1],q)<=0)up.pop();up.push(q)});
-  up.pop();lo.pop();return lo.concat(up)}
  function e(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
- var fs=30;
- function lbl(x,y,t,size,col){return '<text x="'+x+'" y="'+y+'" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="'+size+'" fill="'+(col||"#0d2236")+'" stroke="#fff" stroke-width="'+(size*.28)+'" paint-order="stroke" stroke-linejoin="round" letter-spacing=".04em">'+e(t.toUpperCase())+'</text>'}
- function svg(sel){
-  var vb=[20,110,1880,820],z=1;
-  if(sel!=="all"){var P=A[sel].nodes.map(function(k){return RN[k]}).filter(Boolean),xs=P.map(function(p){return p[0]}),ys=P.map(function(p){return p[1]});
-   var x0=Math.min.apply(null,xs)-200,x1=Math.max.apply(null,xs)+200,y0=Math.min.apply(null,ys)-210,y1=Math.max.apply(null,ys)+150,w=x1-x0,h=y1-y0;
-   if(w/h<1.7){var nw=h*1.7;x0-=(nw-w)/2;w=nw}else{var nh=w/1.7;y0-=(nh-h)/2;h=nh}
-   x0=Math.max(0,Math.min(x0,1900-w));vb=[Math.round(x0),Math.round(y0),Math.round(w),Math.round(h)];z=w/1880}
-  var s='<svg viewBox="'+vb.join(" ")+'" role="img" aria-label="Kort af Les 3 Vallées'+(sel!=="all"?": "+e(A[sel].name)+" merkt":"")+'">'+rBg();
-  s+=(typeof RPEAKS!=="undefined"?RPEAKS:[]).map(function(p){return '<g transform="translate('+p[0]+' '+p[1]+')" opacity=".7"><path d="M-12,0 L0,-18 L12,0Z" fill="#6f8aa6"/></g>'}).join("");
-  if(sel==="all"){
-   [["VT","Val Thorens"],["PLB","Orelle"],["LM","Les Menuires"],["SM","St Martin"],["MER","Méribel"],["MOT","Mottaret"],["C18","Courchevel"]].forEach(function(n){var p=RN[n[0]];if(!p)return;s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="14" fill="#0d2236" stroke="#fff" stroke-width="6"/>'+lbl(p[0],p[1]-30,n[1],50)});
-  }else{
-   var a=A[sel],pts=a.nodes.map(function(k){return RN[k]}).filter(Boolean).map(function(p){return[p[0],p[1]]}),h=hull(pts);
-   var d=h.length>=3?"M"+h.map(function(p){return p.join(",")}).join(" L")+"Z":"M"+(pts[0][0]-1)+","+pts[0][1]+" L"+(pts[0][0]+1)+","+pts[0][1]+"Z";
-   s+='<rect x="-200" y="-300" width="2400" height="1600" fill="#0d2236" opacity=".18"/>';
-   s+='<path class="hl" d="'+d+'" fill="'+a.c+'" fill-opacity=".45" stroke="'+a.c+'" stroke-opacity=".45" stroke-width="'+(150*Math.max(z,.6)).toFixed(0)+'" stroke-linejoin="round"/>';
-   s+='<path d="'+d+'" fill="none" stroke="#fff" stroke-width="150" stroke-linejoin="round" opacity=".0"/>';
-   a.nodes.forEach(function(k){var p=RN[k];if(!p)return;var LB={vt:["VT","PEC","CC","CHB","CTH"],orelle:["BOU","PLB","ROS"],lm:["LM","SM","PM"],me:["MV","MOT","MER","PDM","RDF","ALT"],co:["C18","MOR","SA","CLZ","LPR","ARI"]}[sel]||[];var fz=Math.max(18,46*z);var showL=LB.indexOf(k)>=0;s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+(fz*.35).toFixed(1)+'" fill="'+a.c+'" stroke="#0d2236" stroke-width="'+(fz*.14).toFixed(1)+'"/>'+(showL?lbl(p[0],p[1]-fz*.7,p[3],fz):"")+(showL&&p[2]?'<text x="'+p[0]+'" y="'+(p[1]+fz*1.25)+'" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="'+(fz*.75).toFixed(1)+'" fill="#38536e" stroke="#fff" stroke-width="'+(fz*.22).toFixed(1)+'" paint-order="stroke">'+p[2]+' m</text>':"")});
-   var cx=pts.reduce(function(t,p){return t+p[0]},0)/pts.length,cy=Math.min.apply(null,pts.map(function(p){return p[1]}))-70;
-   s+=lbl(cx,Math.max(vb[1]+70*z+20,cy),a.name,Math.max(30,80*z),"#0d2236");
-  }
-  return s+'</svg>'}
- function card(sel){var a=A[sel];if(sel==="all")return"";
-  return '<article class="sva" style="border-top:4px solid '+a.c+'"><div class="sva-k" style="color:'+a.c+'">'+e(a.k)+'</div><h3>'+e(a.name)+'</h3>'+
-   '<div class="sva-st">'+a.st.map(function(x){return'<div><b>'+e(x[0])+'</b><span>'+e(x[1])+'</span></div>'}).join("")+'</div>'+
-   '<ul>'+a.juicy.map(function(j){return'<li>'+j+'</li>'}).join("")+'</ul>'+
-   '<h4>Brekkur sem þið verðið að prófa</h4><div class="sva-runs">'+a.runs.map(function(r){return'<span><i style="background:'+r[1]+(r[1]===K?";box-shadow:0 0 0 1px #8995a6":"")+'"></i>'+e(r[0])+'</span>'}).join("")+'</div>'+
-   '<h4>Gott ráð</h4><p style="margin:0 0 12px">'+e(a.tip)+'</p>'+
-   '<div class="lacts"><button type="button" class="lbtn" data-eat="'+a.eat+'">Veitingastaðir á svæðinu</button></div></article>'}
+ function nf(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,".")}
+ function heroHTML(a){var t=a.g+a.b+a.r+a.s;
+  return '<div class="sv-k">'+e(a.k)+'</div><div class="sv-stats"><div><b>'+nf(a.km)+'</b><span>km af brekkum</span></div><div><b>'+a.l+'</b><span>lyftur</span></div><div><b>'+t+'</b><span>brekkur</span></div><div><b>'+a.top+'</b><span>m hæst</span></div></div>'+
+  '<div class="sv-bar" role="img" aria-label="'+a.g+' grænar, '+a.b+' bláar, '+a.r+' rauðar og '+a.s+' svartar brekkur"><i style="flex:'+a.g+';background:#2BD46E"></i><i style="flex:'+a.b+';background:#3B82F6"></i><i style="flex:'+a.r+';background:#EF4444"></i><i style="flex:'+a.s+';background:#E2E8F0"></i></div>'+
+  '<div class="sv-leg"><span><i style="background:#2BD46E"></i>'+a.g+' grænar</span><span><i style="background:#3B82F6"></i>'+a.b+' bláar</span><span><i style="background:#EF4444"></i>'+a.r+' rauðar</span><span><i style="background:#E2E8F0"></i>'+a.s+' svartar</span></div>'+
+  '<p class="sv-sub">'+e(a.sub)+'</p>'}
+ function mapHTML(sel){var a=A[sel],ov="";
+  if(a.poly){var pts=a.poly.split(" ").map(function(p){return p.split(",").map(Number)}),xs=pts.map(function(p){return p[0]}),ys=pts.map(function(p){return p[1]});
+   var cx=(Math.min.apply(null,xs)+Math.max.apply(null,xs))/2,ty=Math.max(26,Math.min.apply(null,ys)-14),w=a.name.length*13+34;
+   cx=Math.min(1400-w/2-6,Math.max(w/2+6,cx));
+   ov='<defs><mask id="svMask"><rect width="1400" height="734" fill="#fff"/><polygon points="'+a.poly+'" fill="#000" stroke="#000" stroke-width="24" stroke-linejoin="round"/></mask></defs>'+
+    '<rect width="1400" height="734" fill="#081426" opacity=".55" mask="url(#svMask)"/>'+
+    '<polygon points="'+a.poly+'" fill="'+a.c+'" fill-opacity=".14" stroke="'+a.c+'" stroke-width="5" stroke-linejoin="round"/>'+
+    '<g transform="translate('+cx+' '+ty+')"><rect x="'+(-w/2)+'" y="-18" width="'+w+'" height="32" rx="16" fill="'+a.c+'"/><text y="5" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="20" letter-spacing="1" fill="#081426">'+e(a.name.toUpperCase())+'</text></g>'}
+  return '<div style="position:relative"><img src="'+MAP+'" alt="Opinbert brekkukort Les 3 Vallées'+(a.poly?", "+e(a.name)+" merkt":"")+'" style="display:block;width:100%;height:auto"><svg viewBox="0 0 1400 734" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">'+ov+'</svg></div>'}
+ function card(sel){var a=A[sel];if(!a.juicy)return"";
+  return '<div class="sva" style="border-top:4px solid '+a.c+'"><ul style="margin:0 0 12px">'+a.juicy.map(function(j){return'<li>'+e(j)+'</li>'}).join("")+'</ul><div class="lacts"><button type="button" class="lbtn" data-eat="'+a.eat+'">Veitingastaðir á svæðinu</button></div></div>'}
  function render(sel){
   chips.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.a===sel)});
-  mapEl.innerHTML=svg(sel);out.innerHTML=card(sel);if(hero)hero.hidden=sel!=="all";
+  hero.innerHTML=heroHTML(A[sel]);mapEl.innerHTML=mapHTML(sel);out.innerHTML=card(sel);
   var eb=out.querySelector("[data-eat]");if(eb)eb.addEventListener("click",function(){showTab("veitingar");setTimeout(function(){var el=document.getElementById("eat-"+eb.dataset.eat);if(el)el.scrollIntoView({behavior:"smooth",block:"start"})},350)});
  }
  chips.innerHTML=ORDER.map(function(k){return'<button type="button" data-a="'+k+'" aria-pressed="false"><i style="background:'+A[k].c+'"></i>'+e(A[k].name)+'</button>'}).join("");
  chips.querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){render(b.dataset.a)})});
  render("all");
 },0);
+
 /* ===== Veitingastaðir eftir svæðum ===== */
 setTimeout(function(){
  const G=[
