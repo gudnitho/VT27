@@ -1571,12 +1571,12 @@ setTimeout(function(){
   '<p class="sv-sub">'+e(a.sub)+'</p>'}
  function mapHTML(sel){var a=A[sel],ov="";
   if(a.poly){var pts=a.poly.split(" ").map(function(p){return p.split(",").map(Number)}),xs=pts.map(function(p){return p[0]}),ys=pts.map(function(p){return p[1]});
-   var cx=(Math.min.apply(null,xs)+Math.max.apply(null,xs))/2,ty=Math.max(26,Math.min.apply(null,ys)-14),w=a.name.length*13+34;
+   var cx=(Math.min.apply(null,xs)+Math.max.apply(null,xs))/2,ty=Math.max(34,Math.min.apply(null,ys)-14),w=a.name.length*20+50;
    cx=Math.min(1400-w/2-6,Math.max(w/2+6,cx));
    ov='<defs><mask id="svMask"><rect width="1400" height="734" fill="#fff"/><polygon points="'+a.poly+'" fill="#000" stroke="#000" stroke-width="24" stroke-linejoin="round"/></mask></defs>'+
     '<rect width="1400" height="734" fill="#081426" opacity=".55" mask="url(#svMask)"/>'+
     '<polygon points="'+a.poly+'" fill="'+a.c+'" fill-opacity=".14" stroke="'+a.c+'" stroke-width="5" stroke-linejoin="round"/>'+
-    '<g transform="translate('+cx+' '+ty+')"><rect x="'+(-w/2)+'" y="-18" width="'+w+'" height="32" rx="16" fill="'+a.c+'"/><text y="5" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="20" letter-spacing="1" fill="#081426">'+e(a.name.toUpperCase())+'</text></g>'}
+    '<g transform="translate('+cx+' '+ty+')"><rect x="'+(-w/2)+'" y="-24" width="'+w+'" height="46" rx="23" fill="'+a.c+'"/><text y="9" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="30" letter-spacing="1" fill="#081426">'+e(a.name.toUpperCase())+'</text></g>'}
   return '<div style="position:relative"><img src="'+MAP+'" alt="Opinbert brekkukort Les 3 Vallées'+(a.poly?", "+e(a.name)+" merkt":"")+'" style="display:block;width:100%;height:auto"><svg viewBox="0 0 1400 734" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">'+ov+'</svg></div>'}
  function card(sel){var a=A[sel];if(!a.juicy)return"";
   return '<div class="sva" style="border-top:4px solid '+a.c+'"><ul style="margin:0 0 12px">'+a.juicy.map(function(j){return'<li>'+e(j)+'</li>'}).join("")+'</ul><div class="lacts"><button type="button" class="lbtn" data-eat="'+a.eat+'">Veitingastaðir á svæðinu</button></div></div>'}
