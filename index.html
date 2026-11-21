@@ -1481,6 +1481,54 @@ const LUNCH={
  chaletpierres:{name:"Le Chalet de Pierres",where:"Á Verdons-brautinni, Courchevel 1850",tip:"Þekktasti staður Courchevel: Savoie-réttir og sjávarfang á sólpalli sem snýr að Saulire. Dýr.",tel:"+33 4 79 08 18 61",web:"https://airelles.com/en/destination/courchevel-hotel/restaurants/chalet-de-pierres",fb:"https://www.facebook.com/chaletdepierres"},
  soucoupe:{name:"La Soucoupe",where:"Við Col de la Loze, milli Courchevel og Méribel",tip:"Sveitalegur staður með kjöti grilluðu yfir opnum eldi.",tel:"+33 4 79 08 21 34",web:"https://www.lasoucoupecourchevel.com/",ig:"https://www.instagram.com/la_soucoupe_courchevel/",fb:"https://www.facebook.com/La-soucoupe-courchevel-104394694409291/"}
 };
+
+/* ===== Veðurspurningar án Claude-tengingar (GitHub-útgáfan) ===== */
+setTimeout(function(){
+ if(window.claude&&window.claude.use)return;
+ var box=document.getElementById("askBox");if(!box)return;
+ box.hidden=false;
+ var h=box.querySelector("h3");if(h)h.textContent="Spurðu um veðrið";
+ var form=document.getElementById("askForm");if(form)form.hidden=true;
+ var notes=box.querySelectorAll(":scope > p.note");notes.forEach(function(n){n.textContent="Svörin eru reiknuð beint úr nýjustu veðurspá í appinu."});
+ var chat=document.getElementById("chat");
+ var W=function(){return (typeof wxData!=="undefined"&&wxData)?wxData:null};
+ var R=function(id){var w=W();return w&&w.resorts?w.resorts.find(function(r){return r.id===id}):null};
+ var NM=function(k){return (typeof ICONNAME!=="undefined"&&ICONNAME[k])||"–"};
+ var dg=function(v){return typeof v==="number"?Math.round(v)+"°":"–"};
+ var cmv=function(v){return typeof v==="number"?Math.round(v)+" cm":"–"};
+ function todayISO(){return new Date().toISOString().slice(0,10)}
+ function cls(f){if(!f)return"?";var s=f.snow_cm||0,w=f.wind||0;
+  if(f.icon==="thoka"||(f.icon==="snjokoma"&&s>=15)||w>=55)return"vont";
+  if(f.icon==="sol"||f.icon==="lettskyjad")return(w>=40?"rok":"gott");
+  if(f.icon==="snjokoma")return"snjor";return"skyjad"}
+ function dayLine(r,i){var f=(r.forecast||[])[i];if(!f)return null;
+  return "• "+r.name+": "+NM(f.icon).toLowerCase()+", "+dg(f.t_min)+" til "+dg(f.t_max)+(f.snow_cm?", nýr snjór "+cmv(f.snow_cm):"")+(f.wind?", vindur allt að "+Math.round(f.wind)+" km/klst":"")}
+ function today(){var out=[];["vt","me","co"].forEach(function(id){var r=R(id);if(!r)return;
+   out.push(r.name+":");(r.levels||[]).forEach(function(l){out.push("• "+l.name+": "+dg(l.temp_am)+" í morgun, "+dg(l.temp_pm)+" síðdegis, "+NM(l.icon_pm||l.icon_am).toLowerCase()+". Nýr snjór 24 klst: "+cmv(l.fresh_cm)+(l.wind?". Vindur "+l.wind:"")+".")})});
+  var vt=R("vt");if(vt&&typeof vt.avalanche==="number")out.push("Snjóflóðahætta utan brauta: "+vt.avalanche+" af 5.");
+  return out.join("\n")}
+ function day(i,label){var out=[label+":"];["vt","me","co"].forEach(function(id){var r=R(id);var l=r&&dayLine(r,i);if(l)out.push(l)});return out.length>1?out.join("\n"):"Spáin nær ekki svo langt."}
+ function next3(){return [1,2,3].map(function(i){var r=R("vt");var f=r&&(r.forecast||[])[i];return day(i,f?f.day:"Dagur "+i)}).join("\n\n")}
+ function bestTomorrow(){var vt=R("vt"),f=vt&&(vt.forecast||[])[1];if(!f)return"Engin spá fyrir morgundaginn.";var c=cls(f),t;
+  if(c==="vont")t="Méribel eða Les Menuires. Spáð er "+NM(f.icon).toLowerCase()+(f.snow_cm?" og "+cmv(f.snow_cm)+" af nýjum snjó":"")+" í Val Thorens, og þá er skyggnið best í skóginum í Méribel og neðar í Les Menuires.";
+  else if(c==="gott")t="Hátt í Val Thorens: Cime Caron, Péclet eða yfir til Orelle. Spáð er "+NM(f.icon).toLowerCase()+" og "+dg(f.t_max)+" mest.";
+  else if(c==="rok")t="Sól en hvasst, allt að "+Math.round(f.wind)+" km/klst. Efstu lyfturnar (Cime Caron, Bouchet) gætu lokað. Veljið neðri hluta Val Thorens eða Les Menuires.";
+  else if(c==="snjor")t="Snjókoma en lítil. Val Thorens gengur, en flatt ljós uppi. Haldið ykkur við brekkur með stikum, eða farið í Méribel ef skyggni versnar.";
+  else t="Skýjað: flatt ljós uppi. Les Menuires eða neðri brekkur Val Thorens eru öruggasti kosturinn.";
+  return (todayISO()<"2027-01-06"?"(Á við morgundaginn, ekki ferðadagana.)\n":"")+t}
+ function plan(){var t=todayISO();if(t<"2027-01-04")return"Spáin nær bara 5 daga fram, svo það er of snemmt að bera hana saman við dagskrána. Frá 4. janúar berum við hér saman spá og svæði hvers dags.";
+  var vt=R("vt");if(!vt||!vt.forecast)return"Engin spá tiltæk.";var base=new Date(t+"T12:00:00Z"),out=[];
+  DAYS.forEach(function(d){if(d.zone!=="SKI")return;var i=Math.round((new Date(d.date+"T12:00:00Z")-base)/864e5);if(i<0||i>=vt.forecast.length)return;
+   var f=vt.forecast[i],c=cls(f),a=areaOf(d),high=a&&["vt","orelle","co"].indexOf(a.id)>=0;var lab=d.dw+" "+d.dn+". jan ("+(a?a.chip:"óvalið")+")";
+   if(c==="vont"&&high)out.push("• "+lab+": "+NM(f.icon).toLowerCase()+" spáð. Íhugið Méribel eða Les Menuires í staðinn og víxlið við sólríkari dag.");
+   else if(c==="gott"&&!high)out.push("• "+lab+": sól spáð. Góður dagur til að fara hátt í Val Thorens eða Orelle.");
+   else out.push("• "+lab+": "+NM(f.icon).toLowerCase()+". Planið gengur upp.")});
+  return out.length?out.join("\n"):"Engir skíðadagar innan spárinnar."}
+ var A={"Veðrið í dag":today,"Veðrið á morgun":function(){var f=(R("vt")||{}).forecast;return day(1,"Á morgun ("+(f&&f[1]?f[1].day:"")+")")},"Næstu 3 dagar":next3,"Þarf að breyta planinu?":plan,"Besta svæðið á morgun":bestTomorrow};
+ box.querySelectorAll(".qbtns button").forEach(function(b){var c=b.cloneNode(true);b.replaceWith(c);
+  c.addEventListener("click",function(){var fn=A[c.textContent.trim()];if(!fn||!chat)return;var q=document.createElement("div");q.className="q";q.textContent=c.textContent.trim();
+   var a=document.createElement("div");a.className="a";a.textContent=fn();chat.innerHTML="";chat.appendChild(q);chat.appendChild(a)})});
+},50);
 /* ===== Veitingastaðir eftir svæðum ===== */
 setTimeout(function(){
  const G=[
@@ -2217,7 +2265,7 @@ try{const emb=JSON.parse($("#wxEmbed").textContent);renderWx(emb)}catch(e){}
  function ic(c){if(typeof c!=="number")return null;if(c===0)return"sol";if(c<=2)return"lettskyjad";if(c===3)return"skyjad";if(c===45||c===48)return"thoka";if((c>=71&&c<=77)||c===85||c===86)return"snjokoma";if(c>=51)return"rigning";return"skyjad"}
  function rd(v,k){return typeof v==="number"?Math.round(v*(k||1))/(k||1):null}
  function parisHour(){try{var p=new Intl.DateTimeFormat("sv-SE",{timeZone:"Europe/Paris",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",hour12:false}).format(new Date());return p.replace(" ","T").slice(0,13)+":00"}catch(e){return null}}
- function get(p){var u="https://api.open-meteo.com/v1/forecast?latitude="+p[0]+"&longitude="+p[1]+"&elevation="+p[2]+"&hourly=temperature_2m,snowfall,weather_code,wind_speed_10m,wind_direction_10m,freezing_level_height&daily=weather_code,temperature_2m_max,temperature_2m_min,snowfall_sum&timezone=Europe%2FParis&past_days=1&forecast_days=6";
+ function get(p){var u="https://api.open-meteo.com/v1/forecast?latitude="+p[0]+"&longitude="+p[1]+"&elevation="+p[2]+"&hourly=temperature_2m,snowfall,weather_code,wind_speed_10m,wind_direction_10m,freezing_level_height&daily=weather_code,temperature_2m_max,temperature_2m_min,snowfall_sum,wind_speed_10m_max&timezone=Europe%2FParis&past_days=1&forecast_days=6";
   return fetch(u).then(function(r){if(!r.ok)throw new Error("wx");return r.json()})}
  var ids=Object.keys(PTS),jobs=[];ids.forEach(function(id){PTS[id].forEach(function(p){jobs.push(get(p))})});
  Promise.all(jobs).then(function(res){
@@ -2239,7 +2287,7 @@ try{const emb=JSON.parse($("#wxEmbed").textContent);renderWx(emb)}catch(e){}
     return nl});
    var v=J[0].daily,top=J[1].daily,fc=[],sn=0;
    for(var d=1;d<v.time.length&&fc.length<5;d++){var dt=new Date(v.time[d]+"T12:00:00");
-    fc.push({day:DW[dt.getDay()],icon:ic(v.weather_code[d]),snow_cm:rd(top.snowfall_sum[d]),t_min:rd(v.temperature_2m_min[d]),t_max:rd(v.temperature_2m_max[d])});
+    fc.push({day:DW[dt.getDay()],icon:ic(v.weather_code[d]),snow_cm:rd(top.snowfall_sum[d]),t_min:rd(v.temperature_2m_min[d]),t_max:rd(v.temperature_2m_max[d]),wind:rd(v.wind_speed_10m_max[d])});
     if(d<=3)sn+=top.snowfall_sum[d]||0}
    nr.forecast=fc;nr.snow_next_cm=Math.round(sn);nr.snow_days=3;
    var fz=J[0].hourly.freezing_level_height,ix=J[0].hourly.time.indexOf(now);nr.freezing_m=rd(fz[ix<0?fz.length-1:ix],0.01)!=null?Math.round(fz[ix<0?fz.length-1:ix]/50)*50:r.freezing_m;
