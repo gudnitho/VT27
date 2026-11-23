@@ -1339,7 +1339,7 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
   <!-- VEITINGAR -->
   <section id="tab-veitingar" role="tabpanel" hidden>
     <h2 class="sec-title">Veitingastaðir</h2>
-    <p class="note" style="margin-top:-6px">Hádegisstaðir í brekkunum, flokkaðir eftir svæðum. Bókið borð fyrir 15 manns með góðum fyrirvara, helst daginn áður. Staðir merktir <b style="color:var(--sun)">Meðmæli vina</b> koma frá vinum sem fara reglulega til 3 Vallées.</p>
+    <p class="note" style="margin-top:-6px">Hádegisstaðir í brekkunum, flokkaðir eftir svæðum. Bókið borð fyrir 15 manns með góðum fyrirvara, helst daginn áður. Staðir merktir <b style="color:var(--sun)">Meðmæli Mörtu</b> eru í uppáhaldi hjá Mörtu, sem fer reglulega til 3 Vallées.</p>
     <div class="eat-chips" id="eatChips"></div>
     <div id="eatList"></div>
   </section>
@@ -1637,7 +1637,7 @@ setTimeout(function(){
   {id:"me",name:"Méribel",sub:"Skógurinn, Altiport og Saulire",c:"var(--green)",k:["monchu","mottaret","beefbar","plandesmains","rondpoint","blanchot","pierres"]},
   {id:"co",name:"Courchevel",sub:"1850, Moriond og Col de la Loze",c:"var(--accent)",k:["angelina","soucoupe","creux","caphorn","chaletpierres","belair"]}];
  function card(k){const l=LUNCH[k];if(!l)return"";const telRaw=l.tel?l.tel.replace(/\s/g,""):"";
-  return `<article class="lcard"><h4>${esc(l.name)}</h4><p class="lunch-w">${esc(l.where)}</p><p class="ltip">${esc(l.tip)}</p>${l.vin?`<p class="lvin"><b>Meðmæli vina</b>${esc(l.vin)}</p>`:""}
+  return `<article class="lcard"><h4>${esc(l.name)}</h4><p class="lunch-w">${esc(l.where)}</p><p class="ltip">${esc(l.tip)}</p>${l.vin?`<p class="lvin"><b>Meðmæli Mörtu</b>${esc(l.vin)}</p>`:""}
    <div class="lacts">${l.tel?`<a class="lbtn" href="tel:${esc(telRaw)}">Hringja</a>`:""}${l.web?`<a class="lbtn" href="${esc(l.web)}" target="_blank" rel="noopener">${esc(l.webLabel||"Vefsíða")}</a>`:""}${l.ig?`<a class="lbtn ig" href="${esc(l.ig)}" target="_blank" rel="noopener">Instagram</a>`:""}${l.fb?`<a class="lbtn" href="${esc(l.fb)}" target="_blank" rel="noopener">Facebook</a>`:""}</div>
    ${l.tel?`<p class="lnum"><span class="copy">${esc(l.tel)}</span></p>`:""}</article>`}
  const list=document.getElementById("eatList"),chips=document.getElementById("eatChips");if(!list)return;
@@ -1814,7 +1814,7 @@ function lunchHTML(l){return l?`<div class="lunch"><div class="lunch-k">Hádegis
 function lunchesHTML(keys){if(!keys||!keys.length)return"";
  return `<section class="lunches"><div class="lunch-k">Hádegismatur · tillögur</div><div class="lgrid">${keys.map((k,i)=>{const l=LUNCH[k];if(!l)return"";
   const telRaw=l.tel?l.tel.replace(/\s/g,""):"";const wa=l.wa&&telRaw?"https://wa.me/"+telRaw.replace("+",""):"";
-  return `<article class="lcard${i===0?" first":""}">${i===0?'<span class="lpick">Fyrsta val</span>':""}<h4>${esc(l.name)}</h4><p class="lunch-w">${esc(l.where)}</p><p class="ltip">${esc(l.tip)}</p>${l.vin?`<p class="lvin"><b>Meðmæli vina</b>${esc(l.vin)}</p>`:""}
+  return `<article class="lcard${i===0?" first":""}">${i===0?'<span class="lpick">Fyrsta val</span>':""}<h4>${esc(l.name)}</h4><p class="lunch-w">${esc(l.where)}</p><p class="ltip">${esc(l.tip)}</p>${l.vin?`<p class="lvin"><b>Meðmæli Mörtu</b>${esc(l.vin)}</p>`:""}
    <div class="lacts">${l.tel?`<a class="lbtn" href="tel:${esc(telRaw)}">Sími</a>`:""}${wa?`<a class="lbtn wa" href="${esc(wa)}" target="_blank" rel="noopener">WhatsApp</a>`:""}${l.web?`<a class="lbtn" href="${esc(l.web)}" target="_blank" rel="noopener">${esc(l.webLabel||"Vefsíða")}</a>`:""}${l.ig?`<a class="lbtn ig" href="${esc(l.ig)}" target="_blank" rel="noopener">Instagram</a>`:""}${l.fb?`<a class="lbtn" href="${esc(l.fb)}" target="_blank" rel="noopener">Facebook</a>`:""}</div>
    ${l.tel?`<p class="lnum"><span class="copy">${esc(l.tel)}</span>${wa?" · WhatsApp ef virkt":""}</p>`:'<p class="lnum muted">Símanúmer fannst ekki — pantið á vefsíðunni eða á staðnum.</p>'}</article>`}).join("")}</div></section>`}
 function tipsHTML(t){return t&&t.length?`<div class="box"><h3>Gott að vita</h3><ul>${t.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}
