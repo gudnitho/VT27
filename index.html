@@ -463,6 +463,8 @@ ol.timeline li{grid-template-columns:70px 1fr;position:relative}
 .lcard h4{margin:0;font:900 24px/1 var(--poster);text-transform:uppercase;padding-right:70px}
 .lcard .lunch-w,.lcard .ltip{margin:0}
 .lcard .ltip{font-size:15px}
+.lvin{margin:2px 0 0;padding:8px 10px;border-left:3px solid var(--sun);background:rgba(255,200,80,.08);border-radius:6px;font-size:14px;font-style:italic;line-height:1.4}
+.lvin b{display:block;font-style:normal;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--sun);margin-bottom:2px}
 .lpick{position:absolute;right:12px;top:12px;font:700 10px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--accent);padding:5px 7px;border-radius:999px}
 .lacts{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 .lbtn{display:inline-flex;align-items:center;font:700 13px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink);background:var(--chip);padding:8px 11px;border-radius:999px}
@@ -1337,7 +1339,7 @@ details.cowarn:not([open]) summary h3::after{transform:rotate(-90deg)}
   <!-- VEITINGAR -->
   <section id="tab-veitingar" role="tabpanel" hidden>
     <h2 class="sec-title">Veitingastaðir</h2>
-    <p class="note" style="margin-top:-6px">Hádegisstaðir í brekkunum, flokkaðir eftir svæðum. Bókið borð fyrir 15 manns með góðum fyrirvara, helst daginn áður.</p>
+    <p class="note" style="margin-top:-6px">Hádegisstaðir í brekkunum, flokkaðir eftir svæðum. Bókið borð fyrir 15 manns með góðum fyrirvara, helst daginn áður. Staðir merktir <b style="color:var(--sun)">Meðmæli vina</b> koma frá vinum sem fara reglulega til 3 Vallées.</p>
     <div class="eat-chips" id="eatChips"></div>
     <div id="eatList"></div>
   </section>
@@ -1456,8 +1458,8 @@ const LUNCH={
  fruitiere:{name:"La Fruitière – La Folie Douce",where:"Á Plein Sud-brautinni rétt ofan við þorpið",tip:"Hátíðlegur hádegisverður með útsýnispalli og après á Folie Douce beint á eftir. Borðapöntun nauðsynleg.",tel:"+33 4 79 00 04 27",web:"https://www.lafoliedouce.com/fr/restaurant-val-thorens.html",ig:"https://www.instagram.com/lafruitiere.vt/"},
  caron3200:{name:"Caron 3200",where:"Á toppi Cime Caron, 3200 m",tip:"Nýr veitingastaður, þakbar og vínbar á hæsta punkti svæðisins með 360° útsýni. Staðfestið vetraropnun.",tel:"+33 4 79 00 80 20",web:"https://www.caron3200.com/",ig:"https://www.instagram.com/caron3200m/"},
  caron:{name:"Chalet de Caron",where:"Rétt neðan við þorpið, við Cairn- og Caron-kláfana",tip:"Fljótleg sjálfsafgreiðsla með stórum sólpalli — hentar 15 manna hópi.",tel:"+33 4 79 00 01 71",web:"https://www.caronrestaurant.com/",ig:"https://www.instagram.com/chaletdecaronvalthorens/",fb:"https://www.facebook.com/chaletdecaron.valthorens/"},
- pepe:{name:"Chez Pépé Nicolas",where:"Milli Les Menuires og Val Thorens, um 2000 m – utan brautar, af La Chasse eða Montaulever",tip:"Uppgert smalaskýli frá 1870 með aðeins fimm borðum inni og palli með gæruskinnsstólum. Savoie-matur úr dalnum: fondú, raclette, croziflette, silungur og ostar úr eigin mjólkurbúi. Pantið borð — fyrir 15 með góðum fyrirvara.",tel:"+33 6 09 45 28 35",web:"https://gb.chezpepenicolas.com/booking/",webLabel:"Bóka borð",ig:"https://www.instagram.com/chezpepenicolas/"},
- roc7:{name:"Roc Seven",where:"Efst á Roc 1-kláfnum, 2300 m",tip:"Hæsti ítalski veitingastaður 3 Vallées: eldbakaðar pizzur, ferskt pasta, útsýnispallur og DJ síðdegis.",tel:"+33 9 79 99 87 87",web:"https://bookings.zenchef.com/results?rid=356601",webLabel:"Bóka borð",ig:"https://www.instagram.com/rocseven_lesmenuires/",fb:"https://www.facebook.com/RocSevenLesMenuires"},
+ pepe:{vin:"Kósý og hlýlegur staður, ekki partý. Svakalega góður matur. Getur verið erfitt að skíða þangað ef lítill snjór er.",name:"Chez Pépé Nicolas",where:"Milli Les Menuires og Val Thorens, um 2000 m – utan brautar, af La Chasse eða Montaulever",tip:"Uppgert smalaskýli frá 1870 með aðeins fimm borðum inni og palli með gæruskinnsstólum. Savoie-matur úr dalnum: fondú, raclette, croziflette, silungur og ostar úr eigin mjólkurbúi. Pantið borð — fyrir 15 með góðum fyrirvara.",tel:"+33 6 09 45 28 35",web:"https://gb.chezpepenicolas.com/booking/",webLabel:"Bóka borð",ig:"https://www.instagram.com/chezpepenicolas/"},
+ roc7:{vin:"Góður matur og stemning, oft lifandi tónlist. Geggjað í góðu veðri þegar hægt er að borða úti.",name:"Roc Seven",where:"Efst á Roc 1-kláfnum, 2300 m",tip:"Hæsti ítalski veitingastaður 3 Vallées: eldbakaðar pizzur, ferskt pasta, útsýnispallur og DJ síðdegis.",tel:"+33 9 79 99 87 87",web:"https://bookings.zenchef.com/results?rid=356601",webLabel:"Bóka borð",ig:"https://www.instagram.com/rocseven_lesmenuires/",fb:"https://www.facebook.com/RocSevenLesMenuires"},
  le2800:{name:"Le 2800",where:"Á toppi Pointe de la Masse, 2804 m",tip:"Hæsti veitingastaður Les Menuires með útsýni allt til Mont Blanc. Steikur, pasta og pizzur.",tel:"+33 6 11 74 58 05",wa:true,web:"http://www.le2800.com",ig:"https://www.instagram.com/le2800restaurant/",fb:"https://www.facebook.com/le2800restaurant/"},
  bouche:{name:"Le Bouche à Oreille",where:"Á toppi Roc des 3 Marches, 2700 m",tip:"Bistró Meilleur-feðganna (La Bouitte) með 360° útsýni af tveggja hæða sólpalli.",tel:"+33 4 79 00 46 48",web:"https://lesmenuires.com/en/le-bouche-a-oreille",webLabel:"Upplýsingar",fb:"https://www.facebook.com/Le-Bouche-%C3%A0-Oreille-Les-3-Vall%C3%A9es-484360335009828"},
  etoile:{name:"L'Etoile",where:"Les Menuires, rétt ofan við Croisette (La Sapinière)",tip:"Fjölskylduvænn staður: fondue, tartiflette og hamborgari hússins.",tel:"+33 4 79 00 75 58",web:"http://letoilelesmenuires.fr/",ig:"https://www.instagram.com/letoilelesmenuires/",fb:"https://www.facebook.com/letoilelesmenuires/"},
@@ -1466,10 +1468,16 @@ const LUNCH={
  rondpoint:{name:"Le Rond Point",where:"Méribel, þar sem Forêt- og Rhodos-brautirnar mætast",tip:"Vinsæll staður með borgara og wok-rétti. Breytist í après-stað síðdegis.",tel:"+33 4 79 00 37 51",web:"https://bookings.zenchef.com/results?rid=368815&pid=1001",webLabel:"Bóka borð",ig:"https://www.instagram.com/rondpointmeribel/",fb:"https://www.facebook.com/Rond.Point.Meribel/"},
  blanchot:{name:"Le Blanchot",where:"Við Altiport í Méribel",tip:"Hefðbundinn viðarskáli með arni og sólpalli — einn sá besti í dalnum. Pantið.",web:"https://leblanchotmeribel.com/",ig:"https://www.instagram.com/le_blanchot/",fb:"https://www.facebook.com/RestaurantLeBlanchot/"},
  laloy:{name:"La Loy",where:"Á Biolley-brautinni á leiðinni niður til St Martin",tip:"Klassískur franskur matur á sanngjörnu verði og stór sólpallur.",tel:"+33 4 79 08 92 72",web:"https://www.restaurantlaloy.fr/",fb:"https://www.facebook.com/laloy.menuires/"},
- caphorn:{name:"Le Cap Horn",where:"Við Altiport, Courchevel 1850",tip:"Elsti fjallaveitingastaður Courchevel (1954): stór sólpallur til suðurs, grill, Savoie-réttir og pizzur. Fjölskylduvænn og tekur vel á móti hópum — pantið borð fyrir 15. Frægur vínlisti.",tel:"+33 4 79 08 33 10",web:"https://www.maisontournier.com/fr/page/restaurant-cap-horn-courchevel-maison-tournier.9486.html",ig:"https://www.instagram.com/caphorn.courchevel/",fb:"https://fr-fr.facebook.com/caphorncourchevel/"},
+ caphorn:{vin:"Einn þekktasti staður svæðisins. Geggjaður matur og mikil stemning, en fáránlega dýr.",name:"Le Cap Horn",where:"Við Altiport, Courchevel 1850",tip:"Elsti fjallaveitingastaður Courchevel (1954): stór sólpallur til suðurs, grill, Savoie-réttir og pizzur. Tekur vel á móti hópum en er mjög dýr — pantið borð fyrir 15. Frægur vínlisti.",tel:"+33 4 79 08 33 10",web:"https://www.maisontournier.com/fr/page/restaurant-cap-horn-courchevel-maison-tournier.9486.html",ig:"https://www.instagram.com/caphorn.courchevel/",fb:"https://fr-fr.facebook.com/caphorncourchevel/"},
  belair:{name:"Le Bel Air",where:"Efst á Ariondaz-kláfnum, Courchevel Moriond",tip:"Sólpallur til suðurs og Savoie-réttir. Pantið fyrir 15 með fyrirvara.",tel:"+33 4 79 08 00 93",web:"http://www.belair-courchevel.com",ig:"https://www.instagram.com/lebelair2000/"},
  chaletpierres:{name:"Le Chalet de Pierres",where:"Á Verdons-brautinni, Courchevel 1850",tip:"Þekktasti staður Courchevel: Savoie-réttir og sjávarfang á sólpalli sem snýr að Saulire. Dýr.",tel:"+33 4 79 08 18 61",web:"https://airelles.com/en/destination/courchevel-hotel/restaurants/chalet-de-pierres",fb:"https://www.facebook.com/chaletdepierres"},
- soucoupe:{name:"La Soucoupe",where:"Við Col de la Loze, milli Courchevel og Méribel",tip:"Sveitalegur staður með kjöti grilluðu yfir opnum eldi.",tel:"+33 4 79 08 21 34",web:"https://www.lasoucoupecourchevel.com/",ig:"https://www.instagram.com/la_soucoupe_courchevel/",fb:"https://www.facebook.com/La-soucoupe-courchevel-104394694409291/"}
+ maya:{vin:"Á toppnum milli St Martin og Méribel.",name:"Maya Altitude",where:"Á toppi Tougnète 2, um 2300 m – St Martin Express upp frá Belleville-hliðinni",tip:"Brasserie og fusion: Savoie-réttir, kolagrill og tandoori-ofn, líka sushi. Lífleg stemning.",web:"https://www.sevenrooms.com/reservations/mayaaltitudemeribel",webLabel:"Bóka borð",ig:"https://www.instagram.com/maya_altitude/"},
+ mottaret:{vin:"Góðar pizzur, einfalt og þægilegt, hægt að sitja inni og úti. Nokkrir staðir saman í þyrpingu svo auðvelt er að finna annan.",name:"Pizzeria du Mottaret",where:"Í miðju Mottaret, við rætur brekknanna – á leiðinni heim",tip:"Pizzur, pasta, steikur og Savoie-réttir. Hentugur staður á heimleiðinni því Plattières fer upp frá Mottaret.",tel:"+33 4 79 00 40 50",web:"https://maps.app.goo.gl/o9QE1KEdVYnkN9zx6",webLabel:"Kort"},
+ beefbar:{vin:"Geggjaðar steikur. Æðislegt í góðu veðri, annars myndi ég ekki nenna þangað.",name:"Beefbar Méribel",where:"Á Le Coucou-hótelinu, Belvédère í Méribel – skíðað beint á veröndina",tip:"Steikhús á 7. hæð hótelsins með sólpalli. Dýrt. Opnar 12. desember.",tel:"+33 4 57 58 37 37",web:"https://www.sevenrooms.com/reservations/beefbarmeribel",webLabel:"Bóka borð",ig:"https://www.instagram.com/beefbar.meribel/"},
+ monchu:{vin:"Við erum mjög hrifin af þessum. Gott fyrir krakkana líka.",name:"Le Monchu",where:"Á Rhodos-brautinni í Méribel, um 1750 m (Rhodos 2 / Saulire Express 1)",tip:"Savoie-réttir og pizzur í miðri brekku.",tel:"+33 4 79 22 46 09",web:"https://www.lemonchu-meribel.com",ig:"https://www.instagram.com/le_monchu/"},
+ angelina:{vin:"Ef ég ætti að velja einn stað í Courchevel fyrir svona hóp yrði það þessi: langir og breiðir bekkir, pizza, pasta, hamborgarar og gott tiramisu. En þetta er nánast eins langt frá Val Thorens og hægt er, svo passið heimferðartímann.",name:"Cucina Angelina",where:"Á Portetta-hótelinu, Courchevel Moriond (1650)",tip:"Ítalskur fjallamatur, grill og pizzur. Langt frá Val Thorens: leggið af stað heim ekki seinna en kl. 13:30.",tel:"+33 4 79 08 01 47",web:"https://www.sevenrooms.com/explore/portetta/reservations/create/search/",webLabel:"Bóka borð"},
+ creux:{vin:"Mjög hrifin af þessum stað, góður matur og skemmtileg stemning.",name:"La Cave des Creux",where:"Á Creux-brautinni ofan við Courchevel 1850, um 2110 m",tip:"Savoie-réttir úr hráefni frá bændum í nágrenninu, sólpallur með útsýni. Liggur á Creux-brautinni sem er í Courchevel-planinu.",tel:"+33 4 79 07 76 14",web:"https://www.cavedescreux-courchevel.com"},
+ soucoupe:{vin:"Geggjaðar steikur. Í góðu veðri er veröndin frábær og útsýnið sturlað — stundum sjást flugvélar lenda og taka á loft á stuttri flugbrautinni við Altiport.",name:"La Soucoupe",where:"Við Col de la Loze, milli Courchevel og Méribel",tip:"Sveitalegur staður með kjöti grilluðu yfir opnum eldi.",tel:"+33 4 79 08 21 34",web:"https://www.lasoucoupecourchevel.com/",ig:"https://www.instagram.com/la_soucoupe_courchevel/",fb:"https://www.facebook.com/La-soucoupe-courchevel-104394694409291/"}
 };
 
 /* ===== Veðurspurningar án Claude-tengingar (GitHub-útgáfan) ===== */
@@ -1625,11 +1633,11 @@ setTimeout(function(){
 setTimeout(function(){
  const G=[
   {id:"vt",name:"Val Thorens",sub:"Í kringum þorpið, Péclet og Cime Caron",c:"var(--glacier)",k:["fruitiere","caron","lacs","marine","peclet","caron3200"]},
-  {id:"lm",name:"Les Menuires & St Martin",sub:"Belleville-dalurinn, á leiðinni frá Val Thorens",c:"var(--sun)",k:["pepe","bouche","roc7","le2800","etoile","laloy"]},
-  {id:"me",name:"Méribel",sub:"Skógurinn, Altiport og Saulire",c:"var(--green)",k:["plandesmains","rondpoint","blanchot","pierres"]},
-  {id:"co",name:"Courchevel",sub:"1850, Moriond og Col de la Loze",c:"var(--accent)",k:["chaletpierres","caphorn","belair","soucoupe"]}];
+  {id:"lm",name:"Les Menuires & St Martin",sub:"Belleville-dalurinn, á leiðinni frá Val Thorens",c:"var(--sun)",k:["roc7","pepe","maya","bouche","le2800","etoile","laloy"]},
+  {id:"me",name:"Méribel",sub:"Skógurinn, Altiport og Saulire",c:"var(--green)",k:["monchu","mottaret","beefbar","plandesmains","rondpoint","blanchot","pierres"]},
+  {id:"co",name:"Courchevel",sub:"1850, Moriond og Col de la Loze",c:"var(--accent)",k:["angelina","soucoupe","creux","caphorn","chaletpierres","belair"]}];
  function card(k){const l=LUNCH[k];if(!l)return"";const telRaw=l.tel?l.tel.replace(/\s/g,""):"";
-  return `<article class="lcard"><h4>${esc(l.name)}</h4><p class="lunch-w">${esc(l.where)}</p><p class="ltip">${esc(l.tip)}</p>
+  return `<article class="lcard"><h4>${esc(l.name)}</h4><p class="lunch-w">${esc(l.where)}</p><p class="ltip">${esc(l.tip)}</p>${l.vin?`<p class="lvin"><b>Meðmæli vina</b>${esc(l.vin)}</p>`:""}
    <div class="lacts">${l.tel?`<a class="lbtn" href="tel:${esc(telRaw)}">Hringja</a>`:""}${l.web?`<a class="lbtn" href="${esc(l.web)}" target="_blank" rel="noopener">${esc(l.webLabel||"Vefsíða")}</a>`:""}${l.ig?`<a class="lbtn ig" href="${esc(l.ig)}" target="_blank" rel="noopener">Instagram</a>`:""}${l.fb?`<a class="lbtn" href="${esc(l.fb)}" target="_blank" rel="noopener">Facebook</a>`:""}</div>
    ${l.tel?`<p class="lnum"><span class="copy">${esc(l.tel)}</span></p>`:""}</article>`}
  const list=document.getElementById("eatList"),chips=document.getElementById("eatChips");if(!list)return;
@@ -1689,7 +1697,7 @@ const AREAS={
    ["15:00","Tougnète → Mottaret","Upp og niður til Mottaret."],
    ["15:30","Plattières + Côte Brune","Pluviomètre (blá) heim til Val Thorens."]],
   runs:[["r","Combe du Vallon","Ein lengsta rauða brekka 3 Vallées, um 1000 m fall frá 2952 m"],["b","Lac de la Chambre","Blá frá útsýnisstaðnum Col de la Chambre"],["b","Roc de Fer","Blá frá útsýnisstaðnum Roc de Fer"],["b","Ours","Blá niður skóginn til Mottaret"]],
-  lunches:["plandesmains","pierres","rondpoint","blanchot"],
+  lunches:["plandesmains","monchu","pierres","mottaret","rondpoint","blanchot"],
   tips:["Skógurinn fyrir neðan Mottaret er besti staðurinn í þoku.","Heimferðin er fasti dagsins: komin í Mottaret ekki seinna en 15:30."]},
  me2:{id:"me2",zone:"ME",chip:"Méribel · Saulire",title:"Méribel – Saulire, Mauduit og St Martin",
   sub:"Alouette, útsýnið af Saulire, Mauduit niður í Méribel og hádegi á leiðinni til St Martin.",
@@ -1702,7 +1710,7 @@ const AREAS={
    ["14:00","St Martin 1 + St Martin Express","Upp og niður til Les Menuires."],
    ["15:15","Menuires + Mont de la Chambre","Pluviomètre (blá) heim til Val Thorens."]],
   runs:[["r","Alouette","Rauð frá Col de la Chambre niður til Mottaret"],["r","Mauduit","Löng rauð frá Saulire alla leið niður í Méribel"],["b","Biche","Blá frá Saulire"],["b","Biolley","Blá niður til St Martin"]],
-  lunches:["laloy","pierres","blanchot","rondpoint"],
+  lunches:["laloy","maya","monchu","pierres","beefbar","blanchot","rondpoint"],
   tips:["Saulire er einn besti útsýnisstaður 3 Vallées — þar sést yfir alla dalina.","Farið ekki of seint frá St Martin."]},
  co:{id:"co",zone:"CO",chip:"Courchevel",title:"Courchevel – Creux, Combe Saulire og Signal",
   sub:"Best á laugardegi þegar fáir eru í brekkunum. Löng Creux-brautin, Combe Saulire og útsýnið af Signal.",
@@ -1718,7 +1726,7 @@ const AREAS={
    ["14:00","LEGGJA AF STAÐ HEIM","Vizelle upp á Saulire og niður til Mottaret."],
    ["15:30","Plattières + Côte Brune","Pluviomètre (blá) heim til Val Thorens."]],
   runs:[["b","Creux","Ein lengsta brekka Courchevel, frá Saulire niður til 1850"],["r","Combe Saulire","Rauð og nýtroðin á morgnana"],["b","Lac Bleu","Blá frá Chenus"],["b","Altiport","Blá yfir til 1850"]],
-  lunches:["caphorn","belair","pierres","chaletpierres"],
+  lunches:["caphorn","creux","soucoupe","angelina","belair","pierres","chaletpierres"],
   tips:["Krefst þess að Saulire sé opin — ef vindur eða þoka, veljið annað svæði.","Lokatími tengilyftna er fasti dagsins — athugið hann um morguninn."]}
 };
 const AREA_ORDER=["vt","orelle","menuires","me1","me2","co"];
@@ -1806,7 +1814,7 @@ function lunchHTML(l){return l?`<div class="lunch"><div class="lunch-k">Hádegis
 function lunchesHTML(keys){if(!keys||!keys.length)return"";
  return `<section class="lunches"><div class="lunch-k">Hádegismatur · tillögur</div><div class="lgrid">${keys.map((k,i)=>{const l=LUNCH[k];if(!l)return"";
   const telRaw=l.tel?l.tel.replace(/\s/g,""):"";const wa=l.wa&&telRaw?"https://wa.me/"+telRaw.replace("+",""):"";
-  return `<article class="lcard${i===0?" first":""}">${i===0?'<span class="lpick">Fyrsta val</span>':""}<h4>${esc(l.name)}</h4><p class="lunch-w">${esc(l.where)}</p><p class="ltip">${esc(l.tip)}</p>
+  return `<article class="lcard${i===0?" first":""}">${i===0?'<span class="lpick">Fyrsta val</span>':""}<h4>${esc(l.name)}</h4><p class="lunch-w">${esc(l.where)}</p><p class="ltip">${esc(l.tip)}</p>${l.vin?`<p class="lvin"><b>Meðmæli vina</b>${esc(l.vin)}</p>`:""}
    <div class="lacts">${l.tel?`<a class="lbtn" href="tel:${esc(telRaw)}">Sími</a>`:""}${wa?`<a class="lbtn wa" href="${esc(wa)}" target="_blank" rel="noopener">WhatsApp</a>`:""}${l.web?`<a class="lbtn" href="${esc(l.web)}" target="_blank" rel="noopener">${esc(l.webLabel||"Vefsíða")}</a>`:""}${l.ig?`<a class="lbtn ig" href="${esc(l.ig)}" target="_blank" rel="noopener">Instagram</a>`:""}${l.fb?`<a class="lbtn" href="${esc(l.fb)}" target="_blank" rel="noopener">Facebook</a>`:""}</div>
    ${l.tel?`<p class="lnum"><span class="copy">${esc(l.tel)}</span>${wa?" · WhatsApp ef virkt":""}</p>`:'<p class="lnum muted">Símanúmer fannst ekki — pantið á vefsíðunni eða á staðnum.</p>'}</article>`}).join("")}</div></section>`}
 function tipsHTML(t){return t&&t.length?`<div class="box"><h3>Gott að vita</h3><ul>${t.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}
