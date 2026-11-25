@@ -1,17 +1,9 @@
 {
- "note": "Skýjað í kvöld og létt snjókoma í nótt og á morgun (um 10–13 cm efst), svo kólnar og léttir til; sól og logn föstudag og laugardag. Snjóflóðahætta 3/5 í Val Thorens.",
+ "note": "Létt snjókoma í dag og fram á fimmtudagsmorgun (um 4 cm efst í Val Thorens, 12–13 cm í Méribel og Courchevel), svo léttir til með sól, kulda og hægum vindi föstudag og laugardag. Snjóflóðahætta 3/5.",
  "resorts": [
   {
    "avalanche": 3,
    "forecast": [
-    {
-     "day": "Þri",
-     "icon": "skyjad",
-     "snow_cm": 5,
-     "t_max": -3,
-     "t_min": -9,
-     "wind": 15
-    },
     {
      "day": "Mið",
      "icon": "snjokoma",
@@ -25,7 +17,7 @@
      "icon": "skyjad",
      "snow_cm": 1,
      "t_max": -6,
-     "t_min": -10,
+     "t_min": -11,
      "wind": 15
     },
     {
@@ -53,47 +45,39 @@
      "wind": 10
     }
    ],
-   "freezing_m": 2400,
+   "freezing_m": 1600,
    "id": "vt",
    "levels": [
     {
      "depth_cm": 95,
      "fresh_cm": 116,
-     "icon_am": "lettskyjad",
-     "icon_pm": "skyjad",
+     "icon_am": "snjokoma",
+     "icon_pm": "snjokoma",
      "name": "Þorp 2300 m",
-     "sky": "Léttskýjað í morgun, skýjaðra síðdegis með sólarglennum",
-     "temp_am": -4,
-     "temp_pm": 2,
-     "wind": "7 km/klst N"
+     "sky": "Breytilegt skýjafar og létt snjókoma, lélegt skyggni á köflum",
+     "temp_am": -2,
+     "temp_pm": -3,
+     "wind": "11 km/klst SA"
     },
     {
      "depth_cm": 165,
      "fresh_cm": 190,
-     "icon_am": "lettskyjad",
-     "icon_pm": "skyjad",
+     "icon_am": "snjokoma",
+     "icon_pm": "snjokoma",
      "name": "Cime Caron 3200 m",
-     "sky": "Léttskýjað í morgun, skýjaðra síðdegis",
-     "temp_am": 1,
-     "temp_pm": 3,
-     "wind": "7 km/klst SA"
+     "sky": "Létt snjókoma og skýjað, takmarkað skyggni",
+     "temp_am": -3,
+     "temp_pm": -2,
+     "wind": "22 km/klst SA"
     }
    ],
    "name": "Val Thorens",
-   "snow_days": 3,
-   "snow_next_cm": 9
+   "snow_days": 2,
+   "snow_next_cm": 4
   },
   {
    "avalanche": null,
    "forecast": [
-    {
-     "day": "Þri",
-     "icon": "skyjad",
-     "snow_cm": 4,
-     "t_max": -2,
-     "t_min": -7,
-     "wind": 15
-    },
     {
      "day": "Mið",
      "icon": "snjokoma",
@@ -114,7 +98,7 @@
      "day": "Fös",
      "icon": "sol",
      "snow_cm": 0,
-     "t_max": -9,
+     "t_max": -8,
      "t_min": -11,
      "wind": 15
     },
@@ -127,47 +111,39 @@
      "wind": 10
     }
    ],
-   "freezing_m": 2300,
+   "freezing_m": 1550,
    "id": "me",
    "levels": [
     {
      "depth_cm": 55,
      "fresh_cm": null,
-     "icon_am": "skyjad",
-     "icon_pm": "skyjad",
+     "icon_am": "snjokoma",
+     "icon_pm": "snjokoma",
      "name": "Méribel 1450 m",
-     "sky": "Skýjað með sólarglennum í morgun, alskýjað síðdegis",
-     "temp_am": -1,
-     "temp_pm": 7,
-     "wind": "4 km/klst N"
+     "sky": "Skýjað með léttri snjókomu",
+     "temp_am": 1,
+     "temp_pm": 2,
+     "wind": "7 km/klst SA"
     },
     {
      "depth_cm": 105,
      "fresh_cm": 77,
-     "icon_am": "skyjad",
-     "icon_pm": "skyjad",
+     "icon_am": "snjokoma",
+     "icon_pm": "snjokoma",
      "name": "Mont Vallon 2952 m",
-     "sky": "Skýjað með sólarglennum, alskýjað síðdegis",
-     "temp_am": -2,
-     "temp_pm": 0,
-     "wind": "5 km/klst"
+     "sky": "Skýjað með snjókomu, lélegt skyggni",
+     "temp_am": -4,
+     "temp_pm": -4,
+     "wind": "32 km/klst"
     }
    ],
    "name": "Méribel",
-   "snow_days": 2,
-   "snow_next_cm": 16
+   "snow_days": 1,
+   "snow_next_cm": 12
   },
   {
-   "avalanche": 4,
+   "avalanche": 3,
    "forecast": [
-    {
-     "day": "Þri",
-     "icon": "skyjad",
-     "snow_cm": 3,
-     "t_max": -1,
-     "t_min": -6,
-     "wind": 15
-    },
     {
      "day": "Mið",
      "icon": "snjokoma",
@@ -201,38 +177,38 @@
      "wind": 10
     }
    ],
-   "freezing_m": 2300,
+   "freezing_m": 1600,
    "id": "co",
    "levels": [
     {
-     "depth_cm": 69,
+     "depth_cm": 60,
      "fresh_cm": 60,
-     "icon_am": "lettskyjad",
-     "icon_pm": "skyjad",
+     "icon_am": "snjokoma",
+     "icon_pm": "snjokoma",
      "name": "Courchevel 1850",
-     "sky": "Léttskýjað í morgun, skýjaðra síðdegis",
-     "temp_am": -3,
-     "temp_pm": 5,
-     "wind": "4 km/klst N"
+     "sky": "Breytilegt skýjafar, létt snjókoma",
+     "temp_am": 1,
+     "temp_pm": 3,
+     "wind": "11 km/klst SA"
     },
     {
      "depth_cm": 135,
      "fresh_cm": 129,
-     "icon_am": "lettskyjad",
-     "icon_pm": "skyjad",
+     "icon_am": "rigning",
+     "icon_pm": "rigning",
      "name": "Saulire 2700 m",
-     "sky": "Léttskýjað í morgun, skýjað síðdegis",
-     "temp_am": -2,
-     "temp_pm": 0,
-     "wind": "5 km/klst SA"
+     "sky": "Þungbúið með léttri úrkomu og hvössum sunnanvindi",
+     "temp_am": -1,
+     "temp_pm": -2,
+     "wind": "57 km/klst S"
     }
    ],
    "name": "Courchevel",
-   "snow_days": 2,
-   "snow_next_cm": 16
+   "snow_days": 1,
+   "snow_next_cm": 13
   }
  ],
- "season": "Val Thorens og Orelle opin síðan 21. nóv. – 16 af 29 lyftum og 36 af 84 brautum opnar. Courchevel opnar 4. des.; Méribel, Les Menuires og tengingar 3 Vallées 5. des.",
+ "season": "Val Thorens og Orelle opin síðan 21. nóv. – 16 af 29 lyftum og 33 af 84 brautum opnar. Courchevel opnar 4. des.; Méribel, Les Menuires og tengingar 3 Vallées 5. des.",
  "sources": [
   {
    "title": "3 Vallées veður – Val Thorens",
@@ -335,19 +311,19 @@
    "roc_de_fer": "closed",
    "tete_ronde": "open"
   },
-  "updated": "2026-11-24T17:55:00+01:00"
+  "updated": "2026-11-25T06:55:00+01:00"
  },
  "suggest": {
   "area": "vt",
   "date": "2027-01-07",
-  "text": "Drög fyrir 7. jan.: hátt uppi í Val Thorens (Péclet, Caron) – snjóþekjan er þegar góð, 165 cm við Cime Caron, og meiri snjór kemur á morgun áður en léttir til. Bouchet, Orelle-Caron og Cime Caron eru enn lokaðar; endanlegt val ræðst af skyggni og vindi nær ferð."
+  "text": "Drög fyrir 7. jan.: hátt uppi í Val Thorens (Péclet, Caron) – snjóþekjan er þegar góð (165 cm við Cime Caron, 95 cm í þorpinu) og meira bætist við í dag áður en léttir til. Cime Caron, Bouchet og Orelle-Caron eru enn lokaðar; endanlegt val ræðst af skyggni og vindi nær ferð."
  },
- "updated": "2026-11-24T17:55:00+01:00",
+ "updated": "2026-11-25T06:55:00+01:00",
  "answers": {
-  "today": "Í dag, þriðjudag, er léttskýjað í morgun en skýjaðra síðdegis, með stöku snjóéljum. Vindur er hægur alls staðar.\n\n• Val Thorens: −4° í þorpinu í morgun og um 2° síðdegis. Á Cime Caron (3200 m) er 1° til 3° og vindur 7 km/klst. Snjódýpt er 95 cm í þorpinu og 165 cm uppi.\n• Méribel: −4° í morgun og hlýnar í 7° niðri síðdegis. Á Mont Vallon er −3° til 0°, snjódýpt 105 cm.\n• Courchevel: −3° til 5° í 1850 og −2° til 0° á Saulire, þar sem snjódýptin er 135 cm.\n\nSnjóflóðahætta er töluverð (3 af 5) í Val Thorens og 4 af 5 í Courchevel, svo haldið ykkur á troðnum brautum. Val Thorens og Orelle eru opin með 16 af 29 lyftum og 36 brautum. Courchevel opnar 4. des. og Méribel, Les Menuires og tengingarnar 5. des.",
-  "tomorrow": "Á morgun, miðvikudag, snjóar og kólnar, en snjókoman verður misjöfn eftir svæðum.\n\n• Val Thorens: lítils háttar snjókoma, um 3 cm í spánni en 10–13 cm gætu fallið efst, −11° til −8° og vindur um 15 km/klst. Lélegt skyggni uppi.\n• Méribel: snjókoma, um 12 cm, −10° til −7°.\n• Courchevel: snjókoma, um 13 cm, −9° til −6°.\n\nSnjóflóðahætta er töluverð (3 af 5) í Val Thorens, svo haldið ykkur á troðnum brautum.",
-  "next3": "Miðvikudagur: snjókoma, mest í Méribel og Courchevel (12–13 cm), kalt (−11° til −8° í Val Thorens) og lélegt skyggni.\n\nFimmtudagur: skýjað og kalt, −10° til −6° í Val Thorens, varla snjókoma.\n\nFöstudagur: sól og kalt, −11° til −8°, vindur um 20 km/klst.\n\nFyrir skíðin: föstudagur og laugardagur verða bestu dagarnir, sól og hægur vindur með nýjum snjó.",
-  "plan": "Það er of snemmt að breyta planinu. Veðurspár ná bara um 6 daga fram í tímann og ferðin er eftir um 6 vikur.\n\nTímabilið fer mjög vel af stað: snjódýptin er orðin 165 cm við Cime Caron og 95 cm í þorpinu, og meira bætist við á miðvikudag. Val Thorens og Orelle eru opin. Courchevel opnar 4. des. og Méribel, Les Menuires og tengingarnar milli dalanna 5. des.",
-  "best": "Á morgun eru bara Val Thorens og Orelle opin, og það snjóar allan daginn með lélegu skyggni. Hæstu lyfturnar, Cime Caron og Bouchet, eru enn lokaðar. Best er að halda sig neðarlega í kringum þorpið þar sem skyggnið er skárst og njóta nýja snjósins á troðnum brautum. Haldið ykkur frá ótroðnu vegna snjóflóðahættu. (Á við næstu daga, ekki ferðadagana.)"
+  "today": "Í dag, miðvikudag, er skýjað með léttri snjókomu um allt svæðið og skyggni lélegt á köflum.\n\n• Val Thorens: −2° í þorpinu í morgun og −3° síðdegis. Á Cime Caron (3200 m) er −3° til −2° og vindur um 22 km/klst af suðaustri, takmarkað skyggni. Snjódýpt er 95 cm í þorpinu og 165 cm uppi, og um 4 cm bætast við.\n• Méribel: 1° til 2° niðri í 1450 m en −4° á Mont Vallon með 32 km/klst vindi og lélegu skyggni. Um 12 cm nýsnævi spáð.\n• Courchevel: 1° til 3° í 1850. Á Saulire er hvass sunnanvindur, um 57 km/klst, og þungbúið. Um 13 cm nýsnævi spáð.\n\nSnjóflóðahætta er töluverð (3 af 5), svo haldið ykkur á troðnum brautum. Val Thorens og Orelle eru opin með 16 af 29 lyftum og 33 brautum. Courchevel opnar 4. des. og Méribel, Les Menuires og tengingarnar 5. des.",
+  "tomorrow": "Á morgun, fimmtudag, hættir að snjóa um morguninn og það verður skýjað og kalt.\n\n• Val Thorens: skýjað, −11° til −6°, um 1 cm snjókoma snemma og vindur um 15 km/klst.\n• Méribel: skýjað, −9° til −7°.\n• Courchevel: skýjað með smá éljum, −8° til −6°, hægur vindur.\n\nNýi snjórinn sest og snjóflóðahættan fer hægt lækkandi, en áfram er rétt að halda sig á troðnum brautum.",
+  "next3": "Fimmtudagur: skýjað og kalt, −11° til −6° í Val Thorens, styttir upp um morguninn.\n\nFöstudagur: sól og kalt, −11° til −8°, vindur um 20 km/klst.\n\nLaugardagur: sól og hægur vindur, −9° til −5°.\n\nFyrir skíðin: föstudagur og laugardagur verða frábærir, sól og nýr snjór á troðnum brautum.",
+  "plan": "Það er of snemmt að breyta planinu. Veðurspár ná bara um 6 daga fram í tímann og ferðin er eftir um 6 vikur.\n\nTímabilið fer mjög vel af stað: snjódýptin er 165 cm við Cime Caron og 95 cm í þorpinu, og meira bætist við í dag. Val Thorens og Orelle eru opin. Courchevel opnar 4. des. og Méribel, Les Menuires og tengingarnar milli dalanna 5. des.",
+  "best": "Á morgun eru bara Val Thorens og Orelle opin. Það verður skýjað og kalt eftir snjókomu dagsins. Hæstu lyfturnar, Cime Caron og Bouchet, eru enn lokaðar, svo best er að skíða opnu brautirnar í kringum þorpið og nýta nýja snjóinn á troðnum brautum. Haldið ykkur frá ótroðnu vegna snjóflóðahættu. (Á við næstu daga, ekki ferðadagana.)"
  }
 }
